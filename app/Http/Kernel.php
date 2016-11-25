@@ -52,6 +52,6 @@ class Kernel extends HttpKernel
         /* 后台中间件 */
         'admin.login' => \App\Http\Middleware\AdminLogin::class,
         'admin.auth' => \App\Http\Middleware\AdminAuth::class,
-        'admin.menu' => \App\Http\Middleware\AdminMenu::class,
+        'admin.permission' => \App\Http\Middleware\AdminPermission::class,
     ];
 }

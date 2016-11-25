@@ -11,7 +11,7 @@ Route::any('/login', 'LoginController@index'); //后台登录
 Route::get('/captcha', 'CaptchaController@index'); //后台验证码
 
 //需登录
-Route::group(['middleware' => ['admin.login', 'admin.menu', 'admin.auth']], function(){
+Route::group(['middleware' => ['admin.login', 'admin.permission', 'admin.auth']], function(){
     //基础
     Route::get('/', 'IndexController@index'); //主页
     Route::get('quit', 'LoginController@quit'); //退出

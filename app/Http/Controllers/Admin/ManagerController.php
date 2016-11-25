@@ -244,11 +244,6 @@ class ManagerController extends AdminController
     {
         $user_id = intval(trim($user_id, ' '));
 
-        $result = [
-            'status' => 1,
-            'msg' => '删除失败!'
-        ];
-
         $user = $this->admins->getByUserId($user_id);
         if(!empty($user)){
             $avatar =$user->avatar;
@@ -256,12 +251,11 @@ class ManagerController extends AdminController
             if($res){
                 //删除图片
                 removeFile($avatar);
-                $result['status'] = 0;
-                $result['msg'] = '删除成功!';
+                return $this->responseSuccess('删除成功!');
             }
         }
 
-        echo json_encode($result);
+        return $this->setStatusCode(400)->responseError('删除失败!');
     }
 
 }

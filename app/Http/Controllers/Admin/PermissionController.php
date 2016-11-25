@@ -192,21 +192,15 @@ class PermissionController extends AdminController
     {
         $id = (int)$id;
 
-        $result = [
-            'status' => 1,
-            'msg' => '删除失败!'
-        ];
-
         $permission = $this->permissions->getById($id);
         if(!empty($permission)){
             $res = $permission -> delete();
             if($res){
-                $result['status'] = 0;
-                $result['msg'] = '删除成功!';
+                return $this->responseSuccess('删除成功!');
             }
         }
 
-        echo json_encode($result);
+        return $this->setStatusCode(400)->responseError('删除失败!');
     }
 
 }

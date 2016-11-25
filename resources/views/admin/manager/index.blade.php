@@ -102,7 +102,7 @@
       id = parseInt(id);
       fc_confirm("您要确认删除该管理员么?", function(){
           fc_ajax("{{ url('admin/manager')}}/"+id, {_method:'delete'}, 'post', 'json', function(res){
-              if(res.status == 0){
+              if(res.status == 'successful'){
                   fc_msg("删除成功!", 1);
                   //刷新数据
                   dataTable.ajax.reload();

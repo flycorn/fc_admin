@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 
 /**
- * 后台菜单
+ * 后台权限菜单
  * Class AdminMenu
  * @package App\Http\Middleware
  */
-class AdminMenu
+class AdminPermission
 {
     /**
      * Handle an incoming request.
@@ -27,11 +27,12 @@ class AdminMenu
      */
     public function handle($request, Closure $next)
     {
-        $menus = $this -> authMenu();
+        //获取数据
+        $data = $this -> authPermissionMenu();
         $shareData = [];
-        $shareData['authMenu'] = $menus['menu_list'];
-        $shareData['open_menu'] = $menus['open_menu'];
-        $shareData['breadcrumbs'] = $menus['breadcrumbs'];
+        $shareData['authMenus'] = $data['menu_list'];
+        $shareData['openMenus'] = $data['open_menu'];
+        $shareData['breadcrumbs'] = $data['breadcrumbs'];
 
         //数据绑定模板
         View::share($shareData);
@@ -39,9 +40,34 @@ class AdminMenu
     }
 
     /**
+     * 获取所有权限节点
+     * @return mixed
+     */
+    private function getPermissions()
+    {
+        return Cache::store('file')->rememberForever('admin_permissions',function(){
+            $permissions = Permissions::select(['id', 'name', 'display_name', 'pid', 'icon', 'is_menu'])->get();
+            $permissions = count($permissions) ? $permissions->toArray() : [];
+            if(count($permissions)){
+                foreach ($permissions as $k => $v){
+                    //获取链接
+                    try{
+                        $url = URL::route($v['name'], null);
+                        if(substr($url, -1, 1) == '?') $url = substr($url, 0, -1);
+                    } catch(\Exception $e){
+                        $url = '/admin';
+                    }
+                    $permissions[$k]['url'] = $url;
+                }
+            }
+            return $permissions;
+        });
+    }
+
+    /**
      * 获取授权菜单
      */
-    private function authMenu()
+    private function authPermissionMenu()
     {
         $data = [];
 
@@ -51,26 +77,23 @@ class AdminMenu
         //当前路由别名
         $currentRoute = Route::currentRouteName();
 
-        //获取所有权限
-        $permission_list = Cache::store('file')->rememberForever('admin_permission_list',function(){
-            $permission_list = Permissions::select(['id', 'name', 'display_name', 'pid', 'icon', 'is_menu'])->get();
-            return count($permission_list) ? $permission_list->toArray() : [];
-        });
+        //获取所有权限及菜单
+        $permissions = $this -> getPermissions();
 
-        //筛选出导航菜单
-        $menu_list = Cache::store('file')->rememberForever('admin_menu_list',function() use($permission_list){
-            return searchDataByFieldValue($permission_list, 'is_menu', 1);
-        });
-
-        //转换
+        //菜单
+        $menu_list = [];
+        //重组数据
         $perms = [];
         $now_perms = [];
-        foreach ($permission_list as $k => $v){
+
+        foreach ($permissions as $k => $v){
             if($v['name'] == $currentRoute){
                 $now_perms = $v;
             } else {
-                $v['url'] = URL::route($v['name'], '');
                 $perms[$v['id']] = $v;
+            }
+            if($v['is_menu'] && $admin -> auth($v['name'])){
+                $menu_list[] = $v;
             }
         }
 
@@ -89,17 +112,8 @@ class AdminMenu
             $breadcrumb_ids = array_column($breadcrumbs, 'id');
         }
 
-        //判断该菜单是否已授权
-        foreach ($menu_list as $k => $item){
-            if(!empty($item['name']) && !$admin -> auth($item['name'])){
-                unset($menu_list[$k]);
-                continue;
-            }
-
-            //转成链接
-            $menu_list[$k]['url'] = URL::route($item['name'], null);
-        }
-        $menu_list = (new Permissions())->getSubTree($menu_list, 0);
+        //转换菜单结构
+        $menu_list = getSubTreeData($menu_list, 'pid', 0);
 
         $data['menu_list'] = $menu_list;
         $data['open_menu'] = array_unique($breadcrumb_ids);

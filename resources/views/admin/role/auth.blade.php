@@ -45,7 +45,7 @@
                             @if(count($permission_list))
                                 @foreach($permission_list as $k => $item)
                                 <tr>
-                                <td>{{$item['_name']}}</td>
+                                <td>{{$item['_display_name']}}</td>
                                 <td>{{$item['name']}}</td>
                                 <td>
                                     <input type="checkbox" class="minimal" name="perm_ids[]" @if(in_array($item['id'], $role_perms_ids)) checked="checked" @endif value="{{$item['id']}}">
