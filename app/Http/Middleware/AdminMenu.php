@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Http\Models\Permissions;
 use Closure;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
@@ -52,22 +53,17 @@ class AdminMenu
         $currentRoute = Route::currentRouteName();
 
         //查询出所有菜单
-//        $menu_list = Cache::store('file')->rememberForever('backstage_menu_list',function(){
-//            $menu_list = BackstagePermission::select('id', 'name', 'display_name', 'pid', 'icon')->where('is_menu', 1)->orderBy('sort', 'ASC')->get();
-//            return count($menu_list) ? $menu_list->toArray() : [];
-//        });
-
-        $menu_list = Permissions::select('id', 'name', 'display_name', 'pid', 'icon')->where('is_menu', 1)->orderBy('sort', 'ASC')->get();
-        $menu_list = $menu_list->toArray();
+        $menu_list = Cache::store('file')->rememberForever('admin_menu_list',function(){
+            $menu_list = Permissions::select('id', 'name', 'display_name', 'pid', 'icon')->where('is_menu', 1)->orderBy('sort', 'ASC')->get();
+            return count($menu_list) ? $menu_list->toArray() : [];
+        });
 
         //获取所有权限
-//        $permission_list = Cache::store('file')->rememberForever('backstage_permission_list',function(){
-//            $permission_list = BackstagePermission::select(['id', 'name', 'display_name', 'pid', 'icon'])->get();
-//            return count($permission_list) ? $permission_list->toArray() : [];
-//        });
+        $permission_list = Cache::store('file')->rememberForever('admin_permission_list',function(){
+            $permission_list = Permissions::select(['id', 'name', 'display_name', 'pid', 'icon'])->get();
+            return count($permission_list) ? $permission_list->toArray() : [];
+        });
 
-        $permission_list = Permissions::select(['id', 'name', 'display_name', 'pid', 'icon'])->get();
-        $permission_list = $permission_list->toArray();
         //转换
         $perms = [];
         $now_perms = [];
@@ -79,6 +75,7 @@ class AdminMenu
                 $perms[$v['id']] = $v;
             }
         }
+
         //获取当前面包屑
         $breadcrumbs = [];
         $breadcrumb_ids = [];
