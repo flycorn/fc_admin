@@ -76,10 +76,10 @@
                 ],
             });
 
+            loading(1);
             dataTable.on('preXhr.dt', function () {
                 loading(1);
             });
-
             dataTable.on('draw.dt', function () {
                 loading(0);
             });

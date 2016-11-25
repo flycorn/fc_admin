@@ -50,14 +50,14 @@
 {{ csrf_field() }}
 <div class="form-group @if(session('errors.username')) has-error @endif">
     <label for="username">用户名</label>
-    <input type="text" name="username" id="username" class="form-control" value="{{ $form_type == 'create' ? old('username') : $user -> username }}" placeholder="请输入用户名">
+    <input type="text" name="username" required="required" id="username" class="form-control" value="{{ $form_type == 'create' ? old('username') : $user -> username }}" placeholder="请输入用户名">
     @if(session('errors.username'))
         <span class="help-block">{{ session('errors.username') }}</span>
     @endif
 </div>
 <div class="form-group @if(session('errors.nickname')) has-error @endif">
     <label for="nickname">昵称</label>
-    <input type="text" name="nickname" id="nickname" class="form-control" value="{{ $form_type == 'create' ? old('nickname') : $user -> nickname }}" placeholder="请输入昵称">
+    <input type="text" name="nickname" required="required" id="nickname" class="form-control" value="{{ $form_type == 'create' ? old('nickname') : $user -> nickname }}" placeholder="请输入昵称">
     @if(session('errors.nickname'))
         <span class="help-block">{{ session('errors.nickname') }}</span>
     @endif
@@ -73,7 +73,7 @@
 </div>
 <div class="form-group @if(session('errors.email')) has-error @endif">
     <label for="email">邮箱</label>
-    <input type="email" name="email" id="email" class="form-control" value="{{ $form_type == 'create' ? old('email') : $user -> email }}" placeholder="请输入邮箱">
+    <input type="email" name="email" id="email" required="required" class="form-control" value="{{ $form_type == 'create' ? old('email') : $user -> email }}" placeholder="请输入邮箱">
     @if(session('errors.email'))
         <span class="help-block">{{ session('errors.email') }}</span>
     @endif

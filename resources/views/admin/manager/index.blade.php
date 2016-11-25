@@ -19,7 +19,6 @@
         "bServerSide": true,
         "bSort": true,
         "sAjaxSource": "{{ url('admin/manager') }}",
-//        "lengthChange": false,
         "iDisplayLength": 10,
         "oLanguage": {
          "sProcessing": "正在加载中...",
@@ -85,11 +84,10 @@
             }
         ],
     });
-
+      loading(1);
       dataTable.on('preXhr.dt', function () {
           loading(1);
       });
-
       dataTable.on('draw.dt', function () {
           loading(0);
       });

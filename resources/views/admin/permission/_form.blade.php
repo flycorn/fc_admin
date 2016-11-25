@@ -23,14 +23,14 @@
 
 <div class="form-group @if(session('errors.display_name')) has-error @endif">
     <label for="display_name">权限名称</label>
-    <input type="text" name="display_name" id="display_name" class="form-control" value="{{ $form_type == 'create' ? old('display_name') : $permission->display_name }}" placeholder="请输入权限名称">
+    <input type="text" name="display_name" required="required" id="display_name" class="form-control" value="{{ $form_type == 'create' ? old('display_name') : $permission->display_name }}" placeholder="请输入权限名称">
     @if(session('errors.display_name'))
         <span class="help-block">{{ session('errors.display_name') }}</span>
     @endif
 </div>
 <div class="form-group @if(session('errors.name')) has-error @endif">
     <label for="name">权限规则</label>
-    <input type="text" name="name" id="name" class="form-control" value="{{ $form_type == 'create' ? old('name') : $permission->name }}" placeholder="请输入权限规则">
+    <input type="text" name="name" id="name" required="required" class="form-control" value="{{ $form_type == 'create' ? old('name') : $permission->name }}" placeholder="请输入权限规则">
     @if(session('errors.name'))
         <span class="help-block">{{ session('errors.name') }}</span>
     @endif
