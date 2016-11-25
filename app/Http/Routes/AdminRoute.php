@@ -31,10 +31,10 @@ Route::group(['middleware' => ['admin.login', 'admin.menu', 'admin.auth']], func
     Route::delete('manager/{manager}', 'ManagerController@destroy')->name('admin.manager.delete');
     //权限管理
     Route::get('permission', 'PermissionController@index')->name('admin.permission.index');
+    Route::get('permission/create', 'PermissionController@create')->name('admin.permission.create');
     Route::get('permission/{permission}', 'PermissionController@index')->name('admin.permission.index');
     Route::get('permission/{permission}/create', 'PermissionController@create')->name('admin.permission.create');
     Route::get('permission/{permission}/show', 'PermissionController@show')->name('admin.permission.show');
-    Route::get('permission/create', 'PermissionController@create')->name('admin.permission.create');
     Route::get('permission/{permission}/edit', 'PermissionController@edit')->name('admin.permission.edit');
     Route::put('permission', 'PermissionController@update')->name('admin.permission.edit');
     Route::post('permission', 'PermissionController@store')->name('admin.permission.create');
