@@ -14,18 +14,12 @@ class PermissionController extends AdminController
 {
     /**
      * 列表页
-     * @param Request $request
      * @param int $pid
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request, $pid = 0)
+    public function index($pid = 0)
     {
         $pid = (int)$pid;
-        if($request->ajax()){
-            //重组数据
-            $param = $request->all();
-            return $this->response($this->permissions->dataTable($param, ['where' => ['pid' => $pid]]));
-        }
 
         $parent_permission = null;
         if($pid) $parent_permission = $this->permissions->getById($pid);
@@ -182,25 +176,6 @@ class PermissionController extends AdminController
             $error_data[$k] = array_shift($error);
         }
         return back()->withInput()->with('errors', $error_data);
-    }
-
-    /**
-     * 删除
-     * @param int $id
-     */
-    public function destroy($id = 0)
-    {
-        $id = (int)$id;
-
-        $permission = $this->permissions->getById($id);
-        if(!empty($permission)){
-            $res = $permission -> delete();
-            if($res){
-                return $this->responseSuccess('删除成功!');
-            }
-        }
-
-        return $this->setStatusCode(400)->responseError('删除失败!');
     }
 
 }

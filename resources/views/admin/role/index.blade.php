@@ -18,7 +18,7 @@
                 //配置
                 "bServerSide": true,
                 "bSort": true,
-                "sAjaxSource": "{{ url('admin/role') }}",
+                "sAjaxSource": "/admin/api/role",
 //        "lengthChange": false,
                 "iDisplayLength": 10,
                 "oLanguage": {
@@ -93,7 +93,7 @@
         {
             id = parseInt(id);
             fc_confirm("您要确认删除该角色么?", function(){
-                fc_ajax("{{ url('admin/role')}}/"+id, {_method:'delete'}, 'post', 'json', function(res){
+                fc_ajax("/admin/api/role/"+id, {_method:'delete'}, 'post', 'json', function(res){
                     if(res.status == 'successful'){
                         fc_msg("删除成功!", 1);
                         //刷新数据

@@ -18,7 +18,7 @@
         //配置
         "bServerSide": true,
         "bSort": true,
-        "sAjaxSource": "{{ url('admin/permission/'.$pid) }}",
+        "sAjaxSource": "/admin/api/permission/{{$pid}}",
 //        "lengthChange": false,
         "iDisplayLength": 10,
         "oLanguage": {
@@ -116,7 +116,7 @@
   {
       id = parseInt(id);
       fc_confirm("您要确认删除该权限么?", function(){
-          fc_ajax("{{ url('admin/permission')}}/"+id, {_method:'delete'}, 'post', 'json', function(res){
+          fc_ajax("/admin/api/permission/"+id, {_method:'delete'}, 'post', 'json', function(res){
               if(res.status == 'successful'){
                   fc_msg("删除成功!", 1);
                   //刷新数据

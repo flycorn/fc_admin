@@ -42,7 +42,7 @@ class AdminAuth
                         ]);
                     } else {
                         //获取skin样式
-                        $skin = Config::get('admin.skin');
+                        $skin = Config::get('fc_admin.skin');
                         if(empty($skin)) $skin = 'skin-green';  //默认样式
 
                         return response()->view('admin.errors.403', compact('previousUrl', 'skin', 'admin'));

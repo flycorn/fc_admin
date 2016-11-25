@@ -155,25 +155,6 @@ class RoleController extends AdminController
     }
 
     /**
-     * 删除
-     * @param int $id
-     */
-    public function destroy($id = 0)
-    {
-        $id = (int)$id;
-
-        $role = $this->roles->getById($id);
-        if(!empty($role)){
-            $res = $role -> delete();
-            if($res){
-                return $this->responseSuccess('删除成功!');
-            }
-        }
-
-        return $this->setStatusCode(400)->responseError('删除失败!');
-    }
-
-    /**
      * 授权
      * @param int $id
      */

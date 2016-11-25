@@ -18,7 +18,7 @@
         //配置
         "bServerSide": true,
         "bSort": true,
-        "sAjaxSource": "{{ url('admin/manager') }}",
+        "sAjaxSource": "/admin/api/manager",
         "iDisplayLength": 10,
         "oLanguage": {
          "sProcessing": "正在加载中...",
@@ -101,7 +101,7 @@
   {
       id = parseInt(id);
       fc_confirm("您要确认删除该管理员么?", function(){
-          fc_ajax("{{ url('admin/manager')}}/"+id, {_method:'delete'}, 'post', 'json', function(res){
+          fc_ajax("/admin/api/manager/"+id, {_method:'delete'}, 'post', 'json', function(res){
               if(res.status == 'successful'){
                   fc_msg("删除成功!", 1);
                   //刷新数据

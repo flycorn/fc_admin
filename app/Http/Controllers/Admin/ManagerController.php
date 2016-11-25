@@ -27,14 +27,6 @@ class ManagerController extends AdminController
      */
     public function index(Request $request)
     {
-        //是否ajax
-        if($request->ajax()) {
-
-            //重组数据
-            $param = $request->all();
-            return $this->response($this->admins->dataTable($param));
-        }
-
         return view('admin.manager.index');
     }
 
@@ -234,28 +226,6 @@ class ManagerController extends AdminController
         $role_list = $user->roles;
 
         return view('admin.manager.show', compact('user', 'role_list'));
-    }
-
-    /**
-     * 删除数据
-     * @param $user_id
-     */
-    public function destroy($user_id)
-    {
-        $user_id = intval(trim($user_id, ' '));
-
-        $user = $this->admins->getByUserId($user_id);
-        if(!empty($user)){
-            $avatar =$user->avatar;
-            $res = $user -> delete();
-            if($res){
-                //删除图片
-                removeFile($avatar);
-                return $this->responseSuccess('删除成功!');
-            }
-        }
-
-        return $this->setStatusCode(400)->responseError('删除失败!');
     }
 
 }
