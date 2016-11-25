@@ -1,4 +1,3 @@
-# fc_backstage基于laravel5.2后台脚手架
+# Fc_Admin基于laravel5.2的后台脚手架
 
 >开发中.....
-# fc_admin
