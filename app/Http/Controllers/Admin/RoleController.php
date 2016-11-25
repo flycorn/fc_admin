@@ -21,7 +21,7 @@ class RoleController extends AdminController
         if($request->ajax()){
             //重组数据
             $param = $request->all();
-            return Response::json($this->roles->dataTable($param));
+            return $this->response($this->roles->dataTable($param));
         }
 
         return view('admin.role.index');
@@ -60,7 +60,6 @@ class RoleController extends AdminController
 
         //验证表单
         if($validator -> passes()){
-
             //新增
             $form_data['created_at'] = date('Y-m-d H:i:s');
             $form_data['updated_at'] = $form_data['created_at'];

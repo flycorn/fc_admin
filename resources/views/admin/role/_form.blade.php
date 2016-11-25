@@ -10,7 +10,7 @@
 
 <div class="form-group @if(session('errors.display_name')) has-error @endif">
     <label for="display_name">角色标签</label>
-    <input type="text" name="display_name" required="required" id="display_name" class="form-control" value="{{ $form_type == 'create' ? old('display_name') : $role->display_name }}" placeholder="请输入角色标签">
+    <input type="text" name="display_name" id="display_name" class="form-control" value="{{ $form_type == 'create' ? old('display_name') : $role->display_name }}" placeholder="请输入角色标签">
     @if(session('errors.display_name'))
         <span class="help-block">{{ session('errors.display_name') }}</span>
     @endif

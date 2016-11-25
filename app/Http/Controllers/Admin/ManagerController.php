@@ -32,7 +32,7 @@ class ManagerController extends AdminController
 
             //重组数据
             $param = $request->all();
-            return Response::json($this->admins->dataTable($param));
+            return $this->response($this->admins->dataTable($param));
         }
 
         return view('admin.manager.index');

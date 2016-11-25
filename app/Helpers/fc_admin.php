@@ -152,6 +152,26 @@ if(!function_exists('getParentData')){
     }
 }
 
+/**
+ * 根据对应的字段值查询数据
+ * @param array $data
+ * @param $field
+ * @param $value
+ * @return array
+ */
+if(!function_exists('searchDataByFieldValue')){
+    function searchDataByFieldValue($data, $field, $value)
+    {
+        if(empty($data)) return [];
+        foreach ($data as $k => $item){
+            if($item[$field] != $value){
+                unset($data[$field]);
+            }
+        }
+        return $data;
+    }
+}
+
 if(!function_exists('createBreadCrumb')){
     function createBreadCrumb($data)
     {

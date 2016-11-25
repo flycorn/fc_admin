@@ -44,7 +44,6 @@ class AdminMenu
     private function authMenu()
     {
         $data = [];
-        $open_menu = [];
 
         //获取当前登陆者
         $admin = session('admin');
@@ -52,16 +51,15 @@ class AdminMenu
         //当前路由别名
         $currentRoute = Route::currentRouteName();
 
-        //查询出所有菜单
-        $menu_list = Cache::store('file')->rememberForever('admin_menu_list',function(){
-            $menu_list = Permissions::select('id', 'name', 'display_name', 'pid', 'icon')->where('is_menu', 1)->orderBy('sort', 'ASC')->get();
-            return count($menu_list) ? $menu_list->toArray() : [];
-        });
-
         //获取所有权限
         $permission_list = Cache::store('file')->rememberForever('admin_permission_list',function(){
-            $permission_list = Permissions::select(['id', 'name', 'display_name', 'pid', 'icon'])->get();
+            $permission_list = Permissions::select(['id', 'name', 'display_name', 'pid', 'icon', 'is_menu'])->get();
             return count($permission_list) ? $permission_list->toArray() : [];
+        });
+
+        //筛选出导航菜单
+        $menu_list = Cache::store('file')->rememberForever('admin_menu_list',function() use($permission_list){
+            return searchDataByFieldValue($permission_list, 'is_menu', 1);
         });
 
         //转换

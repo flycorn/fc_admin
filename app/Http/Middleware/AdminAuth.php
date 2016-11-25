@@ -34,9 +34,11 @@ class AdminAuth
                     //验证是否ajax
                     if($request->ajax()) {
                         return response()->json([
-                            'status' => 1,
-                            'code' => 403,
-                            'msg' => '您没有权限执行此操作!'
+                            'status' => 'failed',
+                            'errors' => [
+                                'status_code' => 403,
+                                'message' => '您没有权限执行此操作!',
+                            ]
                         ]);
                     } else {
                         //获取skin样式

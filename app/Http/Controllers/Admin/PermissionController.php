@@ -24,7 +24,7 @@ class PermissionController extends AdminController
         if($request->ajax()){
             //重组数据
             $param = $request->all();
-            return Response::json($this->permissions->dataTable($param, ['where' => ['pid' => $pid]]));
+            return $this->response($this->permissions->dataTable($param, ['where' => ['pid' => $pid]]));
         }
 
         $parent_permission = null;

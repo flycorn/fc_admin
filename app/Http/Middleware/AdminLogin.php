@@ -17,6 +17,16 @@ class AdminLogin
     {
         //验证是否已登录
         if(!session('admin')){
+            //验证是否ajax
+            if($request->ajax()){
+                return response()->json([
+                    'status' => 'failed',
+                    'errors' => [
+                        'status_code' => 403,
+                        'message' => '请先登录!',
+                    ]
+                ]);
+            }
             //跳转至登录
             return redirect('admin/login');
         }
