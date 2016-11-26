@@ -4,10 +4,10 @@ namespace App\Http\Models;
 
 use Zizaco\Entrust\EntrustPermission;
 
-class Permissions extends EntrustPermission
+class Permission extends EntrustPermission
 {
     //
-    protected $table = 'permissions';
+    //protected $table = 'permissions';
     protected $fillable = ['name', 'display_name', 'description', 'pid', 'icon', 'sort', 'is_menu'];
     protected $primaryKey = 'id';
 

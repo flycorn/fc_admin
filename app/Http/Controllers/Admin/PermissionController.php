@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\AdminPermission;
+use Event;
 use App\Http\Models\BackstagePermission;
 use Illuminate\Http\Request;
 
@@ -22,7 +24,7 @@ class PermissionController extends AdminController
         $pid = (int)$pid;
 
         $parent_permission = null;
-        if($pid) $parent_permission = $this->permissions->getById($pid);
+        if($pid) $parent_permission = $this->permission->getById($pid);
 
         return view('admin.permission.index', compact('pid', 'parent_permission'));
     }
@@ -36,7 +38,7 @@ class PermissionController extends AdminController
     {
         $pid = (int)$pid;
         $parent_permission = null;
-        if($pid) $parent_permission = $this->permissions->getById($pid);
+        if($pid) $parent_permission = $this->permission->getById($pid);
 
         return view('admin.permission.create', compact('pid', 'parent_permission'));
     }
@@ -75,10 +77,14 @@ class PermissionController extends AdminController
             //新增
             $form_data['created_at'] = date('Y-m-d H:i:s');
             $form_data['updated_at'] = $form_data['created_at'];
-            $permission_id = $this->permissions->insertGetId($form_data);
+            $permission_id = $this->permission->insertGetId($form_data);
             if(!$permission_id){
                 return back()->withInput()->with('prompt', ['status' => 0, 'msg' => '添加失败!']);
             }
+
+            //触发事件
+            Event::fire(new AdminPermission($this->permission));
+
             //创建成功
             return redirect('admin/permission/'.$form_data['pid'])->with('prompt', ['status' => 1, 'msg' => '添加成功!']);
         }
@@ -98,11 +104,11 @@ class PermissionController extends AdminController
      */
     public function show($id = 0)
     {
-        $permission = $this->permissions->getById($id);
+        $permission = $this->permission->getById($id);
         if(empty($permission)) return redirect('admin/permission')->with('prompt', ['status' => 0, 'msg' => '该权限不存在!']);
 
         $parent_permission = null;
-        if($permission->pid) $parent_permission = $this->permissions->getById($permission->pid, ['id', 'display_name', 'name']);
+        if($permission->pid) $parent_permission = $this->permission->getById($permission->pid, ['id', 'display_name', 'name']);
         return view('admin.permission.show', compact('permission', 'parent_permission'));
     }
 
@@ -113,12 +119,12 @@ class PermissionController extends AdminController
      */
     public function edit($id = 0)
     {
-        $permission = $this->permissions->getById($id);
+        $permission = $this->permission->getById($id);
         if(empty($permission)) return redirect('admin/permission')->with('prompt', ['status' => 0, 'msg' => '该权限不存在!']);
 
         $pid = $permission -> pid;
         $parent_permission = null;
-        if($pid) $parent_permission = $this->permissions->getById($pid);
+        if($pid) $parent_permission = $this->permission->getById($pid);
 
         return view('admin.permission.edit', compact('permission', 'pid', 'parent_permission'));
     }
@@ -134,7 +140,7 @@ class PermissionController extends AdminController
         $id = (int)$id;
         $form_data = $request -> except('_token', '_method', 'pid');
 
-        $permission = $this->permissions->getById($id);
+        $permission = $this->permission->getById($id);
         if(empty($permission)) return redirect('admin/permission')->with('prompt', ['status' => 0, 'msg' => '该权限不存在!']);
 
         //验证
@@ -162,10 +168,14 @@ class PermissionController extends AdminController
             //修改
             if(!isset($form_data['is_menu'])) $form_data['is_menu'] = 0;
 
-            $permission_id = $this->permissions->where('id', $id)->update($form_data);
+            $permission_id = $this->permission->where('id', $id)->update($form_data);
             if(!$permission_id){
                 return back()->withInput()->with('prompt', ['status' => 0, 'msg' => '编辑失败!']);
             }
+
+            //触发事件
+            Event::fire(new AdminPermission($this->permission));
+
             //编辑成功
             return redirect('admin/permission/'.$permission->pid)->with('prompt', ['status' => 1, 'msg' => '编辑成功!']);
         }

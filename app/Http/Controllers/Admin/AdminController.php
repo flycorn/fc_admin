@@ -21,26 +21,4 @@ use Illuminate\Support\Facades\View;
  */
 class AdminController extends BaseController
 {
-    //
-    public function __construct(Admins $admins, Permissions $permissions, Roles $roles)
-    {
-        parent::__construct($admins, $permissions, $roles);
-    }
-
-    /**
-     * 更新session
-     * @param array $data
-     */
-    protected function updateSession($data = [])
-    {
-        $admin = session('admin');
-        if(!empty($data)){
-            foreach ($data as $k => $item) {
-                $admin -> $k = $item;
-            }
-        }
-        //刷新session
-        session(['admin' => $admin]);
-    }
-
 }

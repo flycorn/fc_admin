@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Models\Permissions;
+use App\Http\Models\Permission;
 use Closure;
 
 use Illuminate\Support\Facades\Cache;
@@ -46,7 +46,7 @@ class AdminPermission
     private function getPermissions()
     {
         return Cache::store('file')->rememberForever('admin_permissions',function(){
-            $permissions = Permissions::select(['id', 'name', 'display_name', 'pid', 'icon', 'is_menu'])->get();
+            $permissions = Permission::select(['id', 'name', 'display_name', 'pid', 'icon', 'is_menu'])->get();
             $permissions = count($permissions) ? $permissions->toArray() : [];
             if(count($permissions)){
                 foreach ($permissions as $k => $v){

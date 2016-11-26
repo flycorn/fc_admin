@@ -13,17 +13,10 @@ class RoleController extends AdminController
 {
     /**
      * 角色列表
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
-        if($request->ajax()){
-            //重组数据
-            $param = $request->all();
-            return $this->response($this->roles->dataTable($param));
-        }
-
         return view('admin.role.index');
     }
 
@@ -63,7 +56,7 @@ class RoleController extends AdminController
             //新增
             $form_data['created_at'] = date('Y-m-d H:i:s');
             $form_data['updated_at'] = $form_data['created_at'];
-            $role_id = $this->roles->insertGetId($form_data);
+            $role_id = $this->role->insertGetId($form_data);
             if(!$role_id){
                 return back()->withInput()->with('prompt', ['status' => 0, 'msg' => '添加失败!']);
             }
@@ -87,7 +80,7 @@ class RoleController extends AdminController
     public function show($id = 0)
     {
         $id = (int)$id;
-        $role = $this->roles->getById($id);
+        $role = $this->role->getById($id);
         if(empty($role)) return redirect('admin/role')->with('prompt', ['status' => 0, 'msg' => '该角色不存在!']);
 
         return view('admin.role.show', compact('role'));
@@ -101,7 +94,7 @@ class RoleController extends AdminController
     public function edit($id = 0)
     {
         $id = (int)$id;
-        $role = $this->roles->getById($id);
+        $role = $this->role->getById($id);
         if(empty($role)) return redirect('admin/role')->with('prompt', ['status' => 0, 'msg' => '该角色不存在!']);
 
         return view('admin.role.edit', compact('role'));
@@ -118,7 +111,7 @@ class RoleController extends AdminController
         $id = (int)$id;
         $form_data = $request -> except('_token', '_method');
 
-        $role = $this->roles->getById($id);
+        $role = $this->role->getById($id);
         if(empty($role)) return redirect('admin/role')->with('prompt', ['status' => 0, 'msg' => '该角色不存在!']);
 
         //验证
@@ -138,7 +131,7 @@ class RoleController extends AdminController
         if($validator -> passes()){
 
             //修改
-            $role_id = $this->roles->where('id', $id)->update($form_data);
+            $role_id = $this->role->where('id', $id)->update($form_data);
             if(!$role_id){
                 return back()->withInput()->with('prompt', ['status' => 0, 'msg' => '编辑失败!']);
             }
@@ -161,7 +154,7 @@ class RoleController extends AdminController
     public function auth(Request $request, $id = 0)
     {
         $id = (int)$id;
-        $role = $this->roles->getById($id);
+        $role = $this->role->getById($id);
         if(empty($role)) return redirect('admin/role')->with('prompt', ['status' => 0, 'msg' => '该角色不存在!']);
 
         //验证提交方式

@@ -10,7 +10,31 @@
 Route::any('/login', 'LoginController@index'); //后台登录
 Route::get('/captcha', 'CaptchaController@index'); //后台验证码
 
-//普通层
+
+//后台接口层
+Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => ['admin.login', 'admin.auth']], function(){
+
+    //管理员列表数据
+    Route::get('manager', 'ManagerController@index')->name('admin.manager.index');
+    //删除管理员
+    Route::delete('manager/{manager}', 'ManagerController@destroy')->name('admin.manager.delete');
+    //权限列表数据
+    Route::get('permission', 'PermissionController@index')->name('admin.permission.index');
+    Route::get('permission/{permission}', 'PermissionController@index')->name('admin.permission.index');
+    //删除权限
+    Route::delete('permission/{permission}', 'PermissionController@destroy')->name('admin.permission.delete');
+    //角色列表数据
+    Route::get('role', 'RoleController@index')->name('admin.role.index');
+    //删除角色
+    Route::delete('role/{role}', 'RoleController@destroy')->name('admin.role.delete');
+
+    /**
+     * other modules to do
+     */
+
+});
+
+//后台主模块层
 Route::group(['middleware' => ['admin.login', 'admin.permission', 'admin.auth']], function(){
     //基础
     Route::get('/', 'IndexController@index'); //主页
@@ -51,29 +75,6 @@ Route::group(['middleware' => ['admin.login', 'admin.permission', 'admin.auth']]
      * other modules to do
      */
 
-
-});
-
-//接口层
-Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => ['admin.login', 'admin.auth']], function(){
-
-    //管理员列表数据
-    Route::get('manager', 'ManagerController@index')->name('admin.manager.index');
-    //删除管理员
-    Route::delete('manager/{manager}', 'ManagerController@destroy')->name('admin.manager.delete');
-    //权限列表数据
-    Route::get('permission', 'PermissionController@index')->name('admin.permission.index');
-    Route::get('permission/{permission}', 'PermissionController@index')->name('admin.permission.index');
-    //删除权限
-    Route::delete('permission/{permission}', 'PermissionController@destroy')->name('admin.permission.delete');
-    //角色列表数据
-    Route::get('role', 'RoleController@index')->name('admin.role.index');
-    //删除角色
-    Route::delete('role/{role}', 'RoleController@destroy')->name('admin.role.delete');
-
-    /**
-     * other modules to do
-     */
 
 });
 

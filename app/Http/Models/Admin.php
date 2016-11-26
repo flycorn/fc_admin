@@ -10,7 +10,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  * Class Admins
  * @package App\Http\Models
  */
-class Admins extends Model
+class Admin extends Model
 {
     use EntrustUserTrait;
 

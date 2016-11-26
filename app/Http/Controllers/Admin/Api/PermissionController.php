@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin\Api;
 
 use Illuminate\Http\Request;
-
+use App\Events\AdminPermission;
+use Event;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -25,7 +26,7 @@ class PermissionController extends ApiController
         $pid = (int)$pid;
         //重组数据
         $param = $request->all();
-        return $this->response($this->permissions->dataTable($param, ['where' => ['pid' => $pid]]));
+        return $this->response($this->permission->dataTable($param, ['where' => ['pid' => $pid]]));
     }
 
     /**
@@ -36,10 +37,14 @@ class PermissionController extends ApiController
     {
         $id = (int)$id;
 
-        $permission = $this->permissions->getById($id);
+        $permission = $this->permission->getById($id);
         if(!empty($permission)){
             $res = $permission -> delete();
             if($res){
+
+                //触发事件
+                Event::fire(new AdminPermission($this->permission));
+
                 return $this->responseSuccess('删除成功!');
             }
         }

@@ -49,11 +49,11 @@ class LoginController extends BaseController
                 $admin = null; //管理员
                 if(isEmail($form_data['user'])){
                     //邮箱
-                    $admin = $this->admins->getByEmail($form_data['user']);
+                    $admin = $this->admin->getByEmail($form_data['user']);
                 }
                 if(empty($admin)) {
                     //用户名
-                    $admin = $this->admins->getByUsername($form_data['user']);
+                    $admin = $this->admin->getByUsername($form_data['user']);
                 }
                 //验证查询结果
                 if(empty($admin)){

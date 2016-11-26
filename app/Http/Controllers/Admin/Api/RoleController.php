@@ -23,7 +23,7 @@ class RoleController extends ApiController
     {
         //重组数据
         $param = $request->all();
-        return $this->response($this->roles->dataTable($param));
+        return $this->response($this->role->dataTable($param));
     }
 
     /**
@@ -34,7 +34,7 @@ class RoleController extends ApiController
     {
         $id = (int)$id;
 
-        $role = $this->roles->getById($id);
+        $role = $this->role->getById($id);
         if(!empty($role)){
             $res = $role -> delete();
             if($res){

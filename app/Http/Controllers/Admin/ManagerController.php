@@ -36,7 +36,7 @@ class ManagerController extends AdminController
      */
     public function create()
     {
-        $role_list = $this->roles->select(['id', 'name'])->get();
+        $role_list = $this->role->select(['id', 'name'])->get();
         return view('admin.manager.create', compact('role_list'));
     }
 
@@ -88,7 +88,7 @@ class ManagerController extends AdminController
             //新增
             $avatar = $form_data['avatar'];
             unset($form_data['avatar']);
-            $user_id = $this->admins->insertGetId($form_data);
+            $user_id = $this->admin->insertGetId($form_data);
             if(!$user_id){
                 return back()->withInput()->with('prompt', ['status' => 0, 'msg' => '添加失败!']);
             }
@@ -98,11 +98,11 @@ class ManagerController extends AdminController
                 $new_path = 'upload/admin/avatar/'.$user_id;
                 $new_file = moveFile($avatar, $new_path);
                 if($new_file) $avatar = $new_file;
-                $this->admins->where('user_id', $user_id)->update(['avatar' => $avatar]);
+                $this->admin->where('user_id', $user_id)->update(['avatar' => $avatar]);
             }
 
             //设置角色
-            $this->admins->getByUserId($user_id)->setRoles($role_ids);
+            $this->admin->getByUserId($user_id)->setRoles($role_ids);
             //创建成功
             return redirect('admin/manager')->with('prompt', ['status' => 1, 'msg' => '添加成功!']);
         }
@@ -123,11 +123,11 @@ class ManagerController extends AdminController
     {
         $user_id = intval(trim($user_id, ' '));
         //查询该管理员是否存在
-        $user = $this->admins->getByUserId($user_id);
+        $user = $this->admin->getByUserId($user_id);
         if(empty($user)){
             return redirect('admin/manager')->with('prompt', ['status' => 0, 'msg' => '该管理员不存在!']);
         }
-        $role_list = $this->roles->select(['id', 'name'])->get();
+        $role_list = $this->role->select(['id', 'name'])->get();
         $user_role_ids = count($user->roles) ? array_column($user->roles->toArray(), 'id') : [];
 
         return view('admin.manager.edit', compact('user', 'role_list', 'user_role_ids'));
@@ -141,7 +141,7 @@ class ManagerController extends AdminController
     {
         $user_id = intval(trim($user_id, ' '));
         //查询该管理员是否存在
-        $user = $this->admins->getByUserId($user_id);
+        $user = $this->admin->getByUserId($user_id);
         if(empty($user)){
             return redirect('admin/manager')->with('prompt', ['status' => 0, 'msg' => '该管理员不存在!']);
         }
@@ -192,7 +192,7 @@ class ManagerController extends AdminController
                 if($new_file) $form_data['avatar'] = $new_file;
             }
             //修改
-            $res = $this->admins->where('user_id', '=', $user_id)->update($form_data);
+            $res = $this->admin->where('user_id', '=', $user_id)->update($form_data);
             if(!$res){
                 return back()->with('prompt', ['status' => 0, 'msg' => '编辑失败!']);
             }
@@ -219,7 +219,7 @@ class ManagerController extends AdminController
     {
         $user_id = intval(trim($user_id, ' '));
         //查询该管理员是否存在
-        $user = $this->admins->getByUserId($user_id);
+        $user = $this->admin->getByUserId($user_id);
         if(empty($user)){
             return redirect('admin/manager')->with('prompt', ['status' => 0, 'msg' => '该管理员不存在!']);
         }

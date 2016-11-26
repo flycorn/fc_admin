@@ -17,7 +17,7 @@ class UcenterController extends AdminController
     public function index()
     {
         //获取当前用户信息
-        $user = $this->admins->getByUserId(session('admin.user_id'));
+        $user = $this->admin->getByUserId(session('admin.user_id'));
         if(empty($user)){
             //清空session
             session(['admin' => null]);
@@ -61,7 +61,7 @@ class UcenterController extends AdminController
                 $new_file = moveFile($form_data['avatar'], $new_path);
                 if($new_file) $form_data['avatar'] = $new_file;
             }
-            $res = $this->admins->where('user_id', '=', session('admin.user_id'))->update($form_data);
+            $res = $this->admin->where('user_id', '=', session('admin.user_id'))->update($form_data);
 
             if(!$res){
                 return back()->with('prompt', ['status' => 0, 'msg' => '修改资料失败!']);
@@ -105,7 +105,7 @@ class UcenterController extends AdminController
         if($validator -> passes()){
 
             //验证旧密码密码
-            $user = $this->admins->select(['user_id', 'password', 'salt'])->where('user_id', '=', session('admin.user_id'))->first();
+            $user = $this->admin->select(['user_id', 'password', 'salt'])->where('user_id', '=', session('admin.user_id'))->first();
             if(Crypt::decrypt($user -> password) != $form_data['old_password'].$user -> salt){
                 return back()->with('errors', [
                     'new_password' => '原密码有误!'

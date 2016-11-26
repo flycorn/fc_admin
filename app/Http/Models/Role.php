@@ -5,11 +5,11 @@ namespace App\Http\Models;
 use Illuminate\Support\Facades\Config;
 use Zizaco\Entrust\EntrustRole;
 
-class Roles extends EntrustRole
+class Role extends EntrustRole
 {
     
     //
-    protected $table = 'roles';
+    //protected $table = 'roles';
     protected $fillable = ['id', 'name', 'display_name', 'description'];
     protected $primaryKey = 'id';
 
@@ -24,7 +24,7 @@ class Roles extends EntrustRole
      */
     public function users()
     {
-        return $this->belongsToMany('App\Http\Models\Admins', Config::get('entrust.role_user_table'),Config::get('entrust.role_foreign_key'),Config::get('entrust.user_foreign_key'));
+        return $this->belongsToMany('App\Http\Models\Admin', Config::get('entrust.role_user_table'),Config::get('entrust.role_foreign_key'),Config::get('entrust.user_foreign_key'));
     }
     
     /**

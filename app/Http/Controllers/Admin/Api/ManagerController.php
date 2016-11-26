@@ -23,7 +23,7 @@ class ManagerController extends ApiController
     {
         //重组数据
         $param = $request->all();
-        return $this->response($this->admins->dataTable($param));
+        return $this->response($this->admin->dataTable($param));
     }
 
     /**
@@ -34,7 +34,7 @@ class ManagerController extends ApiController
     {
         $user_id = intval(trim($user_id, ' '));
 
-        $user = $this->admins->getByUserId($user_id);
+        $user = $this->admin->getByUserId($user_id);
         if(!empty($user)){
             $avatar =$user->avatar;
             $res = $user -> delete();
