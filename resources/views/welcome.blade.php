@@ -38,7 +38,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title"><a href="{{url('admin')}}" style="text-decoration:none;">Fc_Admin后台脚手架</a><br/>--Laravel 5</div>
+                <div class="title"><a href="{{url('admin')}}" style="text-decoration:none;color:black;">Fc_Admin后台脚手架</a><br/>--Laravel 5</div>
             </div>
         </div>
     </body>

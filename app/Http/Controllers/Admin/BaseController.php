@@ -38,9 +38,13 @@ class BaseController extends Controller
         //登陆者
         $this -> admin = session('admin');
 
+        //获取skin样式
+        $skin = Config::get('fc_admin.skin');
+        if(empty($skin)) $skin = 'skin-green';  //默认样式
+
         $shareData = [];
         $shareData['admin'] = session('admin');
-
+        $shareData['skin'] = $skin;
         //视图共享数据
         View::share($shareData);
     }

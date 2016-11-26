@@ -25,16 +25,6 @@ class AdminController extends BaseController
     public function __construct(Admins $admins, Permissions $permissions, Roles $roles)
     {
         parent::__construct($admins, $permissions, $roles);
-
-        //获取skin样式
-        $skin = Config::get('fc_admin.skin');
-        if(empty($skin)) $skin = 'skin-green';  //默认样式
-
-        $shareData = [];
-        $shareData['skin'] = $skin;
-
-        //视图共享数据
-        View::share($shareData);
     }
 
     /**
