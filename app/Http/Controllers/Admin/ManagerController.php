@@ -127,6 +127,9 @@ class ManagerController extends AdminController
         if(empty($user)){
             return redirect('admin/manager')->with('prompt', ['status' => 0, 'msg' => '该管理员不存在!']);
         }
+        if($user->user_id == 1){
+            return redirect('admin/manager')->with('prompt', ['status' => 0, 'msg' => '超级管理员不能修改!']);
+        }
         $role_list = $this->role->select(['id', 'name'])->get();
         $user_role_ids = count($user->roles) ? array_column($user->roles->toArray(), 'id') : [];
 
@@ -140,11 +143,6 @@ class ManagerController extends AdminController
     public function update($user_id)
     {
         $user_id = intval(trim($user_id, ' '));
-        //查询该管理员是否存在
-        $user = $this->admin->getByUserId($user_id);
-        if(empty($user)){
-            return redirect('admin/manager')->with('prompt', ['status' => 0, 'msg' => '该管理员不存在!']);
-        }
 
         //获取数据
         $form_data = Input::except('_token', '_method');
@@ -174,6 +172,14 @@ class ManagerController extends AdminController
         //验证表单
         if($validator -> passes()){
 
+            //查询该管理员是否存在
+            $user = $this->admin->getByUserId($user_id);
+            if(empty($user)){
+                return redirect('admin/manager')->with('prompt', ['status' => 0, 'msg' => '该管理员不存在!']);
+            }
+            if($user->user_id == 1){
+                return redirect('admin/manager')->with('prompt', ['status' => 0, 'msg' => '超级管理员不能修改!']);
+            }
             //判断是否需要修改密码
             if(!empty($form_data['password'])){
                 $form_data['salt'] = getSalt();

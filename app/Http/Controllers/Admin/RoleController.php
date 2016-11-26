@@ -53,6 +53,10 @@ class RoleController extends AdminController
 
         //验证表单
         if($validator -> passes()){
+            //验证角色名
+            if(is_numeric(strpos($form_data['name'], '超级管理员'))){
+                return back()->withInput()->with('errors', ['name' => '角色名不合法!']);
+            }
             //新增
             $form_data['created_at'] = date('Y-m-d H:i:s');
             $form_data['updated_at'] = $form_data['created_at'];
@@ -129,7 +133,10 @@ class RoleController extends AdminController
 
         //验证表单
         if($validator -> passes()){
-
+            //验证角色名
+            if(is_numeric(strpos($form_data['name'], '超级管理员'))){
+                return back()->withInput()->with('errors', ['name' => '角色名不合法!']);
+            }
             //修改
             $role_id = $this->role->where('id', $id)->update($form_data);
             if(!$role_id){

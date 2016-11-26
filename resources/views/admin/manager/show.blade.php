@@ -13,7 +13,9 @@
     <div class="box-body">
       <div class="form-group">
         <label for="role">所属角色</label>
-        @if(count($role_list))
+        @if($admin->user_id==1)
+            <span>超级管理员</span>
+        @else if(count($role_list))
             @foreach($role_list as $k => $item)
             <span>{{$item->name}} @if(($k+1) != count($role_list)) &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; @endif</span>
             @endforeach

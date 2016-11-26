@@ -36,6 +36,9 @@ class ManagerController extends ApiController
 
         $user = $this->admin->getByUserId($user_id);
         if(!empty($user)){
+            if($user->user_id == 1){
+               return $this->setStatusCode(400)->responseError('超级管理员不能删除!');
+            }
             $avatar =$user->avatar;
             $res = $user -> delete();
             if($res){

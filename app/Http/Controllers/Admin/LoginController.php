@@ -29,21 +29,17 @@ class LoginController extends BaseController
             $rules = [
                 'user' => 'required',
                 'password' => 'required',
-                'captcha' => 'required',
+                'captcha' => 'required|regex:/^'.$captcha.'$/',
             ];
             $message = [
                 'user.required' => '请填写用户名或邮箱!',
                 'password.required' => '请填写密码!',
                 'captcha.required' => '请填写验证码!',
+                'captcha.regex' => '验证码不正确!',
             ];
             $check = Validator::make($form_data, $rules, $message);
             //表单验证
             if($check -> passes()){
-
-                //验证验证码
-                if($captcha != $form_data['captcha']){
-                    return back()->withInput()->with('errors', ['captcha' => '验证码不正确!']);
-                }
 
                 //数据验证
                 $admin = null; //管理员
