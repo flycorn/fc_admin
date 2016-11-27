@@ -19,15 +19,3 @@
 //        'remember_token' => str_random(10),
 //    ];
 //});
-
-$factory->define(App\Http\Models\BackstageUsers::class, function (Faker\Generator $faker) {
-    $salt = getSalt();
-    $pwd = '123456';
-    return [
-        'username' => $faker->userName,
-        'nickname' => $faker->name,
-        'email' => $faker->safeEmail,
-        'salt' => $salt,
-        'password' => Crypt::encrypt($pwd.$salt),
-    ];
-});

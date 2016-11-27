@@ -6,5 +6,7 @@
  * Time: 下午10:15
  */
 return [
-    'skin' => 'skin-green'
+    'skin' => 'skin-green', //样式
+    'username' => 'admin', //用户名
+    'email' => 'admin@admin.com', //邮箱
 ];

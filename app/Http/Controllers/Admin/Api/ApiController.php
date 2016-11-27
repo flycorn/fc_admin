@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Response;
 
 class ApiController extends BaseController
 {
+    protected $statusCode = '200'; //请求状态
+
     //获取状态
     protected function getStatusCode()
     {

@@ -25,7 +25,6 @@ class BaseController extends Controller
     protected $permission;
     protected $role;
     protected $login_admin; //登录的管理员
-    protected $statusCode = '200'; //请求状态
 
     //
     public function __construct(Admin $admin, Permission $permission, Role $role)
