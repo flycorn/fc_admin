@@ -55,15 +55,15 @@
 <script src="{{ asset('static/admin/js/layer/layer.js') }}"></script>
 <script src="{{ asset('static/admin/js/flycorn.js') }}"></script>
 
-<script>
-    $(function () {
-        //防止被嵌入子页面
-        if(window.top != window)
-        {
-            window.top.location.href = document.location.href;
-        }
-    });
-</script>
+{{--<script>--}}
+    {{--$(function () {--}}
+        {{--//防止被嵌入子页面--}}
+        {{--if(window.top != window)--}}
+        {{--{--}}
+            {{--window.top.location.href = document.location.href;--}}
+        {{--}--}}
+    {{--});--}}
+{{--</script>--}}
 </body>
 @endsection
 

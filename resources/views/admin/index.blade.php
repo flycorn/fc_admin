@@ -3,5 +3,5 @@
 @section('title', '主页')
 
 @section('content')
- <h1>主页</h1>
+ <h1>Fc_Admin后台脚手架</h1>
 @endsection
