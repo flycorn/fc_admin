@@ -12,6 +12,8 @@
     
     cp .env.example .env
     根据自己情况修改.env配置,及config/fc_admin.php中的配置
+    fc_admin.php配置中可设置超级管理员的用户名及邮箱
+    默认超级管理员的用户名为：admin 邮箱为：admin@admin.com
     
 >3、重置密钥
     
@@ -29,7 +31,7 @@
 
     php artisan fc_admin:init
     
->7、OK......开启后台脚手架之旅吧！
+>7、OK......开启后台脚手架之旅吧！初始登录密码为：admin123
 
 
 <code>ps: 如果500错误，请将storage目录权限设为777。</code>
