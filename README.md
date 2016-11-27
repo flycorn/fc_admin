@@ -2,6 +2,8 @@
 
 ###安装步骤
 
+***
+
 >1、git克隆项目
 
     git clone https://github.com/flycorn/fc_admin.git fc_admin
@@ -11,7 +13,7 @@
     cp .env.example .env
     根据自己情况修改.env配置,及config/fc_admin.php中的配置
     
->3、composer下载类库
+>3、composer下载所需类库
     
     composer update
     
@@ -25,3 +27,7 @@
     
 >6、OK......开启后台脚手架之旅吧！
     
+###后台截图
+
+***
+
