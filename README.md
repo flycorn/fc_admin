@@ -12,7 +12,8 @@
     
     cp .env.example .env
     根据自己情况修改.env配置,及config/fc_admin.php中的配置
-    fc_admin.php配置中可设置超级管理员的用户名及邮箱
+    fc_admin.php配置中可设置后台样式、超级管理员的用户名及邮箱
+    默认样式为：skin-green （skin-green、skin-green-light、skin-black、skin-black-light、skin-blue、skin-blue-light、skin-purple、skin-purple-light、skin-red、skin-red-light、skin-yellow、skin-yellow-light）
     默认超级管理员的用户名为：admin 邮箱为：admin@admin.com
     
 >3、重置密钥
