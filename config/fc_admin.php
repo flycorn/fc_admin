@@ -1,9 +1,9 @@
 <?php
 /**
  * 后台脚手架配置
- * User: yuming
- * Date: 16/11/19
- * Time: 下午10:15
+ * author: flycorn
+ * email: ym1992it@163.com
+ * time: 16/11/27 下午5:26
  */
 return [
     'skin' => 'skin-green', //样式
