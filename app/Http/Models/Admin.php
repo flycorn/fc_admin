@@ -16,7 +16,7 @@ class Admin extends Model
 
     //
     protected $table = 'admins';
-    protected $fillable = ['username', 'nickname', 'avatar', 'email', 'introduction', 'password', 'salt'];
+    protected $fillable = ['username', 'nickname', 'avatar', 'email', 'introduction', 'password', 'salt', 'remember_token'];
     protected $primaryKey = 'user_id';
 
     /**
@@ -24,10 +24,43 @@ class Admin extends Model
      * @param $admin_id
      * @param array $fields
      */
-    public function getByUserId($user_id, $fields = ['user_id', 'username', 'nickname', 'avatar', 'email', 'password', 'salt', 'introduction', 'created_at', 'updated_at'])
+    public function getByUserId($user_id, $fields = ['user_id', 'username', 'nickname', 'avatar', 'email', 'password', 'salt', 'introduction', 'created_at', 'updated_at', 'remember_token'])
     {
         return $this -> select($fields)->where('user_id', $user_id)->first();
     }
+
+    /**
+     * 根据邮箱获取数据
+     * @param $email 邮箱
+     * @param array $fields 查询字段
+     */
+    public function getByEmail($email, $fields = ['user_id', 'username', 'nickname', 'avatar', 'email', 'password', 'salt', 'introduction', 'created_at', 'updated_at', 'remember_token'])
+    {
+        return $this -> select($fields)->where('email', '=', $email)->first();
+    }
+
+    /**
+     * 根据用户名获取数据
+     * @param $username 用户名
+     * @param array $fields 查询字段
+     * @return mixed
+     */
+    public function getByUsername($username, $fields = ['user_id', 'username', 'nickname', 'avatar', 'email', 'password', 'salt', 'introduction', 'created_at', 'updated_at', 'remember_token'])
+    {
+        return $this -> select($fields)->where('username', '=', $username)->first();
+    }
+
+    /**
+     * 根据记住密码token获取数据
+     * @param $remember_token token
+     * @param array $fields 查询字段
+     * @return mixed
+     */
+    public function getByRememberToken($remember_token, $fields = ['user_id', 'username', 'nickname', 'avatar', 'email', 'password', 'salt', 'introduction', 'created_at', 'updated_at', 'remember_token'])
+    {
+        return $this -> select($fields)->where('remember_token', '=', $remember_token)->first();
+    }
+
 
     /**
      *  验证权限
@@ -60,27 +93,6 @@ class Admin extends Model
         foreach ($role_ids as $k => $role_id){
             $this->attachRole(['id' => $role_id]);
         }
-    }
-
-    /**
-     * 根据邮箱获取数据
-     * @param $email 邮箱
-     * @param array $fields 查询字段
-     */
-    public function getByEmail($email, $fields = ['user_id', 'username', 'nickname', 'avatar', 'email', 'password', 'salt', 'introduction', 'created_at'])
-    {
-        return $this -> select($fields)->where('email', '=', $email)->first();
-    }
-
-    /**
-     * 根据用户名获取数据
-     * @param $username 用户名
-     * @param array $fields 查询字段
-     * @return mixed
-     */
-    public function getByUsername($username, $fields = ['user_id', 'username', 'nickname', 'avatar', 'email', 'password', 'salt', 'introduction', 'created_at'])
-    {
-        return $this -> select($fields)->where('username', '=', $username)->first();
     }
 
     /**

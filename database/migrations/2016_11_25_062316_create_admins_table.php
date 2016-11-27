@@ -22,9 +22,10 @@ class CreateAdminsTable extends Migration
             $table->string('email', 30)->default('')->comment('邮箱');
             $table->string('password', 255)->default('')->comment('密码');
             $table->char('salt', 10)->default('')->comment('密码盐');
+            $table->string('remember_token')->default('')->comment('记住token');
             $table->string('introduction', 255)->default('')->comment('介绍');
             $table->timestamps();
-            $table->unique(['user_id', 'email', 'username']);
+            $table->unique(['user_id', 'email', 'username', 'remember_token']);
         });
     }
 

@@ -103,6 +103,16 @@ function fc_ajax(url, data, type, dataType, successfn, errorfn)
             'X-XSRF-TOKEN': $.cookie('XSRF-TOKEN')
         },
         success: function(d){
+            //验证结果
+            if(d.status == 'failed'){
+                if(d.errors.status_code == 403){
+                    fc_msg("该操作不允许!", 0);
+                    return;
+                } else if(d.errors.status_code == 401){
+                    fc_msg("请登录后操作!", 0);
+                    return;
+                }
+            }
             successfn(d);
         },
         error: function(e){

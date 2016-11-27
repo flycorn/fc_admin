@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Cookie;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Response;
 
 /**
  * 后台登录模块
@@ -63,11 +65,15 @@ class LoginController extends BaseController
                 unset($admin -> password);
                 unset($admin -> salt);
 
-                //判断是否写入cookie
                 session(['admin' => $admin]);
-                if(isset($form_data['remember']) && $form_data['remember']){
-                    //记住密码
 
+                //判断是否写入cookie
+                if(isset($form_data['remember']) && $form_data['remember']){
+                    //记住密码,生成用户的remember_token
+                    $admin->remember_token = uniqid().str_random(30);
+                    $admin->save();
+                    //设置Cookie
+                    return redirect('admin')->withCookie(Cookie::forever('fc_admin_remember_token', $admin->remember_token));
                 }
 
                 //跳转至后台首页

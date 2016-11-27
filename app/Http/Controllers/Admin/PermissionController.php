@@ -104,6 +104,7 @@ class PermissionController extends AdminController
      */
     public function show($id = 0)
     {
+        $id = (int)$id;
         $permission = $this->permission->getById($id);
         if(empty($permission)) return redirect('admin/permission')->with('prompt', ['status' => 0, 'msg' => '该权限不存在!']);
 

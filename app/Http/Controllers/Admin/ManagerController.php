@@ -10,7 +10,6 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -22,10 +21,9 @@ class ManagerController extends AdminController
 {
     /**
      * 管理员列表
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
         return view('admin.manager.index');
     }
@@ -223,7 +221,7 @@ class ManagerController extends AdminController
      */
     public function show($user_id)
     {
-        $user_id = intval(trim($user_id, ' '));
+        $user_id = (int)$user_id;
         //查询该管理员是否存在
         $user = $this->admin->getByUserId($user_id);
         if(empty($user)){
