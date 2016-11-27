@@ -35,15 +35,15 @@
         <span class="help-block">{{ session('errors.name') }}</span>
     @endif
 </div>
-@if($pid == 0)
-    <div class="form-group">
-        <label for="tag" class="control-label">ICON图</label>
-        <div>
-            <!-- Button tag -->
-            <button id="tag" class="btn btn-default" name="icon" data-iconset="fontawesome" data-icon="{{ $form_type == 'create' ? 'fa-sliders' : $permission->icon }}" role="iconpicker"></button>
-        </div>
+
+<div class="form-group">
+    <label for="tag" class="control-label">ICON图</label>
+    <div>
+        <!-- Button tag -->
+        <button id="tag" class="btn btn-default" name="icon" data-iconset="fontawesome" data-icon="{{ $form_type == 'create' ? 'fa-sliders' : $permission->icon }}" role="iconpicker"></button>
     </div>
-@endif
+</div>
+
 
 <div class="form-group @if(session('errors.sort')) has-error @endif">
     <label for="sort">权限排序</label>

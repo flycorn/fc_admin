@@ -18,6 +18,7 @@
         <section class="content-header">
 {{--            @yield('breadcrumbs')--}}
             {{ createBreadCrumb($breadcrumbs) }}
+            @yield('breadcrumb')
         </section>
 
         <!-- 主体内容区 -->

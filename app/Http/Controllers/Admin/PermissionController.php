@@ -146,7 +146,7 @@ class PermissionController extends AdminController
 
         //验证
         $rules = [
-            'name' => 'required|unique:backstage_permissions,name,'.$id.'|max:255',
+            'name' => 'required|unique:permissions,name,'.$id.'|max:255',
             'display_name' => 'required|max:255',
         ];
         $message = [

@@ -40,10 +40,11 @@ class RoleController extends AdminController
         $form_data = $request -> except('_token');
         //验证
         $rules = [
-            'name' => 'required|max:255',
+            'name' => 'required|unique:roles|max:255',
         ];
         $message = [
             'name.required' => '请填写角色名称!',
+            'name.unique' => '该角色名已存在!',
             'name.max' => '角色名称过长!',
         ];
 
@@ -120,10 +121,11 @@ class RoleController extends AdminController
 
         //验证
         $rules = [
-            'name' => 'required|max:255',
+            'name' => 'required|unique:roles,name,'.$id.'|max:255',
         ];
         $message = [
             'name.required' => '请填写角色名称!',
+            'name.unique' => '该角色名已存在!',
             'name.max' => '角色名称过长!',
         ];
 
