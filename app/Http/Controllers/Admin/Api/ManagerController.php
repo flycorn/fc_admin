@@ -43,7 +43,7 @@ class ManagerController extends ApiController
             $res = $user -> delete();
             if($res){
                 //删除图片
-                removeFile($avatar);
+                if($avatar != 'upload/admin/avatar/default/avatar.png') removeFile($avatar);
                 return $this->responseSuccess('删除成功!');
             }
         }
