@@ -39,9 +39,9 @@ class LoginController extends BaseController
                 'captcha.required' => '请填写验证码!',
                 'captcha.regex' => '验证码不正确!',
             ];
-            $check = Validator::make($form_data, $rules, $message);
+            $validator = Validator::make($form_data, $rules, $message);
             //表单验证
-            if($check -> passes()){
+            if($validator -> passes()){
 
                 //数据验证
                 $admin = null; //管理员
@@ -79,14 +79,7 @@ class LoginController extends BaseController
                 //跳转至后台首页
                 return redirect('admin');
             }
-            //整理出错信息集合
-            $error_data = [];
-            $errors = $check -> errors() -> messages();
-
-            foreach($errors as $k => $error){
-                $error_data[$k] = array_shift($error);
-            }
-            return back()->withInput()->with('errors', $error_data);
+            return $this->validator_error($validator);
         }
 
         return view('admin.login');

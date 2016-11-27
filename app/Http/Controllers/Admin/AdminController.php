@@ -21,4 +21,20 @@ use Illuminate\Support\Facades\View;
  */
 class AdminController extends BaseController
 {
+    /**
+     * 验证错误处理
+     * @param Validator $check
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function validator_error(Validator $validator)
+    {
+        //整理出错信息集合
+        $error_data = [];
+        $errors = $validator -> errors() -> messages();
+
+        foreach($errors as $k => $error){
+            $error_data[$k] = array_shift($error);
+        }
+        return back()->withInput()->with('errors', $error_data);
+    }
 }

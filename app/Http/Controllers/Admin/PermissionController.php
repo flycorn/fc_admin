@@ -70,8 +70,6 @@ class PermissionController extends AdminController
 
         $validator = Validator::make($form_data, $rules, $message);
 
-        $error_data = []; //错误集
-
         //验证表单
         if($validator -> passes()){
             //新增
@@ -88,13 +86,7 @@ class PermissionController extends AdminController
             //创建成功
             return redirect('admin/permission/'.$form_data['pid'])->with('prompt', ['status' => 1, 'msg' => '添加成功!']);
         }
-
-        //整理出错信息集合
-        $errors = $validator -> errors() -> messages();
-        foreach($errors as $k => $error){
-            $error_data[$k] = array_shift($error);
-        }
-        return back()->withInput()->with('errors', $error_data);
+        return $this->validator_error($validator);
     }
 
     /**
@@ -161,8 +153,6 @@ class PermissionController extends AdminController
 
         $validator = Validator::make($form_data, $rules, $message);
 
-        $error_data = []; //错误集
-
         //验证表单
         if($validator -> passes()){
 
@@ -180,13 +170,7 @@ class PermissionController extends AdminController
             //编辑成功
             return redirect('admin/permission/'.$permission->pid)->with('prompt', ['status' => 1, 'msg' => '编辑成功!']);
         }
-
-        //整理出错信息集合
-        $errors = $validator -> errors() -> messages();
-        foreach($errors as $k => $error){
-            $error_data[$k] = array_shift($error);
-        }
-        return back()->withInput()->with('errors', $error_data);
+        return $this->validator_error($validator);
     }
 
 }

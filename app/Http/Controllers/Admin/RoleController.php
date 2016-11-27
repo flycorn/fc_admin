@@ -50,8 +50,6 @@ class RoleController extends AdminController
 
         $validator = Validator::make($form_data, $rules, $message);
 
-        $error_data = []; //错误集
-
         //验证表单
         if($validator -> passes()){
             //验证角色名
@@ -68,13 +66,7 @@ class RoleController extends AdminController
             //编辑成功
             return redirect('admin/role')->with('prompt', ['status' => 1, 'msg' => '添加成功!']);
         }
-
-        //整理出错信息集合
-        $errors = $validator -> errors() -> messages();
-        foreach($errors as $k => $error){
-            $error_data[$k] = array_shift($error);
-        }
-        return back()->withInput()->with('errors', $error_data);
+        return $this->validator_error($validator);
     }
 
     /**
@@ -131,8 +123,6 @@ class RoleController extends AdminController
 
         $validator = Validator::make($form_data, $rules, $message);
 
-        $error_data = []; //错误集
-
         //验证表单
         if($validator -> passes()){
             //验证角色名
@@ -147,13 +137,7 @@ class RoleController extends AdminController
             //编辑成功
             return redirect('admin/role')->with('prompt', ['status' => 1, 'msg' => '编辑成功!']);
         }
-
-        //整理出错信息集合
-        $errors = $validator -> errors() -> messages();
-        foreach($errors as $k => $error){
-            $error_data[$k] = array_shift($error);
-        }
-        return back()->withInput()->with('errors', $error_data);
+        return $this->validator_error($validator);
     }
 
     /**

@@ -49,7 +49,6 @@ class UcenterController extends AdminController
             'introduction.max' => '个人简介过长!',
         ];
         $validator = Validator::make($form_data, $rules, $message);
-        $error_data = []; //错误集
         //验证表单
         if($validator -> passes()){
             //头像
@@ -72,12 +71,7 @@ class UcenterController extends AdminController
 
             return back()->with('prompt', ['status' => 1, 'msg' => '修改资料成功!']);
         }
-        //整理出错信息集合
-        $errors = $validator -> errors() -> messages();
-        foreach($errors as $k => $error){
-            $error_data[$k] = array_shift($error);
-        }
-        return back()->with('errors', $error_data);
+        return $this->validator_error($validator);
     }
 
     /**
@@ -100,7 +94,6 @@ class UcenterController extends AdminController
             'new_password.different' => '新密码不能与原密码一致!',
         ];
         $validator = Validator::make($form_data, $rules, $message);
-        $error_data = []; //错误集
         //表单验证
         if($validator -> passes()){
 
@@ -122,11 +115,6 @@ class UcenterController extends AdminController
             //修改成功
             return back()->with('prompt', ['status' => 1, 'msg' => '修改密码成功!']);
         }
-        //整理出错信息集合
-        $errors = $validator -> errors() -> messages();
-        foreach($errors as $k => $error){
-            $error_data[$k] = array_shift($error);
-        }
-        return back()->with('errors', $error_data);
+        return $this->validator_error($validator);
     }
 }
