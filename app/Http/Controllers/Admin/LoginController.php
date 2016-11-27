@@ -79,7 +79,15 @@ class LoginController extends BaseController
                 //跳转至后台首页
                 return redirect('admin');
             }
-            return $this->validator_error($validator);
+
+            //整理出错信息集合
+            $error_data = [];
+            $errors = $validator -> errors() -> messages();
+
+            foreach($errors as $k => $error){
+                $error_data[$k] = array_shift($error);
+            }
+            return back()->withInput()->with('errors', $error_data);
         }
 
         return view('admin.login');
