@@ -13,20 +13,28 @@
     cp .env.example .env
     根据自己情况修改.env配置,及config/fc_admin.php中的配置
     
->3、composer下载所需类库
-    
-    composer update
-    
->4、重置密钥
+>3、重置密钥
     
     php artisan key:generate
     
->5、初始化后台
+>4、composer下载所需类库
+    
+    composer update
+  
+>5、创建数据表
+
+    php artisan migrate
+    
+>6、初始化后台
 
     php artisan fc_admin:init
     
->6、OK......开启后台脚手架之旅吧！
-    
+>7、OK......开启后台脚手架之旅吧！
+
+
+#####ps: 如果500错误，请将storage目录权限设为777。
+
+
 ###后台截图
 
 ***
