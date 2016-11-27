@@ -175,7 +175,7 @@ class RoleController extends AdminController
         }
 
         //获取树形全部数据
-        $permission_list = $this->permissions->getTreeAllData();
+        $permission_list = $this->permission->getTreeAllData();
 
         //获取当前角色已付权限
         $role_perms = $role -> perms;

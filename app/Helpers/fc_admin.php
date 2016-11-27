@@ -224,10 +224,14 @@ if(!function_exists('createAdminMenu')){
             if($type > 0) echo '<ul class="treeview-menu">';
             foreach ($data as $k => $item){
                 echo '<li ';
+                echo ' class="';
+                if($item['pid']==0) echo 'treeview';
                 if(in_array($item['id'], $openMenus)){
-                    echo ' class="active" ';
+                    echo ' active ';
                 }
-                echo '><a href="'.$item['url'].'"><i class="fa fa-circle-o"></i>'.$item['display_name'];
+                echo '" ';
+                echo '><a href="'.$item['url'].'"><i class="fa '.$item['icon'].'"></i>';
+                echo $item['pid'] == 0 ? '<span>'.$item['display_name'].'</span>' : $item['display_name'];
                 if(!empty($item['data'])){
                     echo '<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>';
                 }

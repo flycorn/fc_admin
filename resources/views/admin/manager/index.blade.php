@@ -73,7 +73,7 @@
                             @if($admin->auth('admin.manager.edit'))
                             opt_html += "<a href='{{ url('admin/manager') }}/"+data+"/edit' class='btn btn-flat btn-primary btn-xs'>编辑</a>";
                             @endif
-                            @if($admin->auth('admin.manager.destroy'))
+                            @if($admin->auth('admin.manager.delete'))
                             opt_html += "<a href='javascript:;' onclick='delData("+data+")' class='btn btn-flat btn-danger btn-xs'>删除</a>";
                             @endif
                         }

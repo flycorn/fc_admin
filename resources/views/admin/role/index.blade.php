@@ -65,7 +65,7 @@
                                 @if($admin->auth('admin.role.edit'))
                                 opt_html += "<a href='{{ url('admin/role') }}/"+data+"/edit' class='btn btn-flat btn-primary btn-xs'>编辑</a>";
                                 @endif
-                                @if($admin->auth('admin.role.destroy'))
+                                @if($admin->auth('admin.role.delete'))
                                 opt_html += "<a href='javascript:;' onclick='delData("+data+")' class='btn btn-flat btn-danger btn-xs'>删除</a>";
                                 @endif
                                 return opt_html;

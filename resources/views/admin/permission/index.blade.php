@@ -87,7 +87,7 @@
                         @if($admin->auth('admin.permission.edit'))
                         opt_html += "<a href='{{ url('admin/permission') }}/"+data+"/edit' class='btn btn-flat btn-primary btn-xs'>编辑</a>";
                         @endif
-                        @if($admin->auth('admin.permission.destroy'))
+                        @if($admin->auth('admin.permission.delete'))
                         opt_html += "<a href='javascript:;' onclick='delData("+data+")' class='btn btn-flat btn-danger btn-xs'>删除</a>";
                         @endif
 
