@@ -2,6 +2,12 @@
 
 @section('title', '个人中心')
 
+@section('breadcrumb')
+    <ol class="breadcrumb">
+        <li><a href="javascript:;"><i class="fa fa-user"></i> 个人中心</a></li>
+    </ol>
+@endsection
+
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{asset('static/admin/js/uploadify/uploadify.css')}}">
     <style>
