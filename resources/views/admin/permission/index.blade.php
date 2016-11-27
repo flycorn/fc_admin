@@ -41,7 +41,8 @@
         "aaSorting": [
            [0, 'desc'],
            [3],
-           [5]
+           [5],
+           [6]
         ],
         "aoColumns": [
          { "data": "id" },
@@ -49,6 +50,7 @@
          { "data": "name", "bSortable": false },
          { "data": "is_menu" },
          { "data": "icon", "bSortable": false },
+         { "data": "sort" },
          { "data": "updated_at" },
          { "data": "id", "bSortable": false },
         ],
@@ -94,7 +96,7 @@
                         return opt_html;
                     }
                 },
-                "targets": 6
+                "targets": 7
             }
         ],
     });
@@ -141,7 +143,7 @@
    <table id="dataTable" class="table table-bordered table-striped">
     <thead>
     <tr>
-        <th colspan="7">
+        <th colspan="8">
             <span class="btn-flat text-info">所属权限：@if($parent_permission) {{$parent_permission->display_name}} @else 顶级权限 @endif</span>&nbsp;&nbsp;&nbsp;&nbsp;
             @if($admin->auth('admin.permission.create'))
             <a href="{{ url('admin/permission/'.$pid.'/create') }}" class='btn btn-success btn-sm'>添加权限</a>
@@ -155,6 +157,7 @@
      <th>权限规则</th>
      <th>是否菜单</th>
      <th>ICON</th>
+     <th>排序</th>
      <th>编辑时间</th>
      <th>操作</th>
     </tr>
@@ -168,6 +171,7 @@
             <th>权限规则</th>
             <th>是否菜单</th>
             <th>ICON</th>
+            <th>排序</th>
             <th>编辑时间</th>
             <th>操作</th>
         </tr>
