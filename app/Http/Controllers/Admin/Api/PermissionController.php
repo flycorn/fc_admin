@@ -39,6 +39,11 @@ class PermissionController extends ApiController
 
         $permission = $this->permission->getById($id);
         if(!empty($permission)){
+            //验证是否有自权限
+            $sub = $this->permission->where('pid', $id)->first();
+            if(!empty($sub)){
+                $this->setStatusCode(400)->responseError('请先删除子权限!');
+            }
             $res = $permission -> delete();
             if($res){
 
