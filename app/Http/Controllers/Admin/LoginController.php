@@ -95,7 +95,9 @@ class LoginController extends BaseController
     //退出
     public function quit()
     {
+        //清空session及cookie
         session(['admin' => null]);
+        Cookie::forget('fc_admin_remember_token');
         return redirect('admin/login');
     }
 }
