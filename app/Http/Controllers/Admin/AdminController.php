@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Models\Permissions;
-use App\Http\Models\Roles;
-use App\Http\Models\Admins;
+use App\Http\Models\Permission;
+use App\Http\Models\Role;
+use App\Http\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 
 /**
@@ -21,6 +18,21 @@ use Illuminate\Support\Facades\View;
  */
 class AdminController extends BaseController
 {
+    public function __construct(Admin $admin, Permission $permission, Role $role)
+    {
+        parent::__construct($admin, $permission, $role);
+
+        //获取skin样式
+        $skin = Config::get('fc_admin.skin');
+        if(empty($skin)) $skin = 'skin-green';  //默认样式
+
+        $shareData = [];
+        $shareData['admin'] = session('admin');
+        $shareData['skin'] = $skin;
+        //视图共享数据
+        View::share($shareData);
+    }
+    
     /**
      * 验证错误处理
      * @param Validator $check
