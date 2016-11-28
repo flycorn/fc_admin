@@ -34,6 +34,7 @@
     
 >7、OK......开启后台脚手架之旅吧！初始登录密码为：admin123
 
+<code>ps: 请将项目根目录指向到public目录。</code>
 
 <code>ps: 如果500错误，请将storage目录权限设为777。</code>
 
