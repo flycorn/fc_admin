@@ -25,13 +25,13 @@ class LoginController extends BaseController
 
             //获取提交数据
             $form_data = $request -> except('_token');
-            $captcha = $request->session()->get('admin_login_captcha'); //获取验证码
+            $captcha = strtolower($request->session()->get('admin_login_captcha')); //获取验证码
 
             //验证
             $rules = [
                 'user' => 'required',
                 'password' => 'required',
-                'captcha' => 'required|regex:/^'.$captcha.'$/',
+                'captcha' => 'required|regex:/^('.$captcha.')$/',
             ];
             $message = [
                 'user.required' => '请填写用户名或邮箱!',
