@@ -32,13 +32,13 @@ class AdminController extends BaseController
         //视图共享数据
         View::share($shareData);
     }
-    
+
     /**
      * 验证错误处理
-     * @param Validator $check
+     * @param $validator
      * @return \Illuminate\Http\RedirectResponse
      */
-    protected function validator_error(Validator $validator)
+    protected function validator_error($validator)
     {
         //整理出错信息集合
         $error_data = [];
