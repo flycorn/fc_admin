@@ -39,11 +39,13 @@ function fc_confirm(msg, yesfn, nofn)
     }, function(){
         if(params >= 2){
             yesfn();
+            layer.closeAll();
             return;
         }
     }, function(){
         if(params == 3){
             nofn();
+            layer.closeAll();
             return;
         }
     });
