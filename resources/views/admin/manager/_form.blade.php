@@ -64,8 +64,8 @@
 </div>
 <div class="form-group">
     <label for="avatar">头像</label>
-    <input type="hidden" name="avatar" id="avatar_val" value="" />
-    <img id="avatar_img" src="{{ $form_type == 'create' ? '' : asset($user -> avatar) }}" class="img-lg img-circle" style="{{ $form_type == 'create' ? 'display: none;' : '' }}float: none !important;">
+    <input type="hidden" name="avatar" id="avatar_val" value="{{$form_type == 'create' && !empty(old('avatar')) ? old('avatar') : '' }}" />
+    <img id="avatar_img" src="{{ $form_type == 'create' ? (!empty(old('avatar')) ? asset(old('avatar')) : '') : asset($user -> avatar) }}" class="img-lg img-circle" style="{{ $form_type == 'create' && empty(old('avatar')) ? 'display: none;' : '' }}float: none !important;">
 </div>
 <div class="form-group">
     <label for="avatar">上传头像</label>
