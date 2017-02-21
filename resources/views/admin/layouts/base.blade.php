@@ -15,6 +15,8 @@
  <link rel="stylesheet" href="{{ asset('static/admin/css/ionicons.min.css') }}">
  <!-- Theme style -->
  <link rel="stylesheet" href="{{ asset('static/admin/dist/css/AdminLTE.min.css') }}">
+ <!-- Fc_admin style -->
+ <link rel="stylesheet" href="{{ asset('static/admin/css/fc_admin.css') }}">
 
  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

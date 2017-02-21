@@ -8,42 +8,21 @@
     </ol>
 @endsection
 
-@section('css')
-    <link rel="stylesheet" type="text/css" href="{{asset('static/admin/js/uploadify/uploadify.css')}}">
-    <style>
-        .uploadify{display:inline-block;}
-        .uploadify-button{border:none; border-radius:5px; margin-top:8px;}
-    </style>
-@endsection
-
 @section('js')
-    <script src="{{asset('static/admin/js/uploadify/jquery.uploadify.min.js')}}" type="text/javascript"></script>
     <script>
         $(function () {
+
             //上传组件
-            $('#file_upload').uploadify({
-                'buttonText' : '头像上传',
-                'formData'     : {
-                    'timestamp' : '{{ time() }}',
-                    '_token'     : "{{csrf_token()}}",
-                    'type' : 0, //类型
-                },
-                'swf'      : "{{asset('static/admin/js/uploadify/uploadify.swf')}}",
-                'uploader' : "{{url('admin/upload/image')}}",
-                'onUploadSuccess' : function(file, data, response) {
-                    if(response){
-                        //成功
-                        var res = eval('('+data+')');
-                        if(res.status <= 0){
-                            fc_msg(res.msg, 0);
-                            return;
-                        }
-                        //成功
-                        $("#avatar_val").val(res.data.img);
-                        $('#avatar_img').attr('src', res.data.img_url);
-                    }
+            fc_upload_img("#file_upload", { url: "{{url('admin/upload/image')}}", param: { type: 0 }}, function(res){
+                if(res.status <= 0){
+                    fc_msg(res.msg, 0);
+                    return;
                 }
+                //成功
+                $("#avatar_val").val(res.data.img);
+                $('#avatar_img').attr('src', res.data.img_url);
             });
+
         });
     </script>
 @endsection
@@ -80,7 +59,7 @@
                      </div>
                      <div class="form-group">
                          <label for="avatar">上传头像</label>
-                         <input id="file_upload" name="file_upload" type="file" multiple="false">
+                         <em class="btn bg-purple btn-sm fc-upload-btn"><input id="file_upload" name="Filedata" type="file" multiple="false">选择头像</em>
                      </div>
                      <div class="form-group @if(session('errors.email')) has-error @endif">
                          <label for="email">邮箱</label>
