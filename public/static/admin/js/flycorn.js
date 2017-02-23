@@ -221,6 +221,9 @@ var fc_upload_img = function (ele, configParam, successfn, errorfn){
     //绑定事件
     $(ele).on("change", function(){
 
+        //判断是否有图片上传
+        if($(this).val() == "" || $(this).val() == null) return;
+
         //获取表单数据
         var formData = new FormData($(config.formEle)[0]);
 
