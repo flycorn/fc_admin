@@ -176,6 +176,8 @@ var fc_upload_img = function (ele, configParam, successfn, errorfn){
         url: '',
         param: null,
         dataType: 'json',
+        beforeUpload: null, //上传前处理
+        afterUpload: null, //上传后处理
         async: false
     };
     //配置参数
@@ -190,6 +192,12 @@ var fc_upload_img = function (ele, configParam, successfn, errorfn){
     }
     if(configParam.hasOwnProperty('param')){
         config.param = configParam.param;
+    }
+    if(configParam.hasOwnProperty('beforeUpload')){
+        config.beforeUpload = configParam.beforeUpload;
+    }
+    if(configParam.hasOwnProperty('afterUpload')){
+        config.afterUpload = configParam.afterUpload;
     }
     if(configParam.hasOwnProperty('async')){
         config.async = configParam.async;
@@ -221,8 +229,15 @@ var fc_upload_img = function (ele, configParam, successfn, errorfn){
     //绑定事件
     $(ele).on("change", function(){
 
+        var inputFile = $(this);
+
         //判断是否有图片上传
-        if($(this).val() == "" || $(this).val() == null) return;
+        if(inputFile.val() == "" || inputFile.val() == null) return;
+
+        //上传前处理
+        if(typeof config.beforeUpload == 'function'){
+            config.beforeUpload(inputFile);
+        }
 
         //获取表单数据
         var formData = new FormData($(config.formEle)[0]);
@@ -240,6 +255,10 @@ var fc_upload_img = function (ele, configParam, successfn, errorfn){
             processData:false,
             contentType:false,
             success:function(d){
+                //上传后处理
+                if(typeof config.afterUpload == 'function'){
+                    config.afterUpload(inputFile);
+                }
                 //成功
                 if(typeof successfn == 'function'){
                     successfn(d);
@@ -247,6 +266,10 @@ var fc_upload_img = function (ele, configParam, successfn, errorfn){
                 }
             },
             error:function(e){
+                //上传后处理
+                if(typeof config.afterUpload == 'function'){
+                    config.afterUpload(inputFile);
+                }
                 //失败
                 if(typeof errorfn == 'function'){
                     errorfn(e);
