@@ -132,8 +132,8 @@ var fc_ajax = function (url, data, type, dataType, successfn, errorfn)
 
 /**
  * 预览图片
- * @param ele
- * @param previewEle
+ * @param ele input上传组件 (如：#upload_img)
+ * @param previewEle 图片 (如：#show_img)
  */
 var fc_preview = function (ele, previewEle) {
     var file = $(ele)[0];
@@ -163,10 +163,19 @@ var fc_preview = function (ele, previewEle) {
 
 /**
  * 上传图片
- * @param ele
- * @param configParam
- * @param successfn
- * @param errorfn
+ * @param ele 上传input组件 (如：#upload_img)
+ * @param configParam 配置参数
+ *        @params
+ *        form 是否已存在表单 (默认: false)
+ *        formEle 表单节点id名 (默认: #fc_upload_form)
+ *        url 上传地址
+ *        param 额外提交数据
+ *        dataType 返回数据类型 (默认: json)
+ *        beforeUpload 上传前处理方法
+ *        afterUpload 上传后处理方法
+ *        async ajax上传是否异步 (默认: false)
+ * @param successfn 上传成功回调方法
+ * @param errorfn 上传失败回调方法
  */
 var fc_upload_img = function (ele, configParam, successfn, errorfn){
     //基础配置
@@ -246,7 +255,7 @@ var fc_upload_img = function (ele, configParam, successfn, errorfn){
         $.ajax({
             url: config.url,
             type: 'POST',
-            async: config.async, //或false,是否异步
+            async: config.async,
             data: formData,
             dataType: config.dataType,
             headers: {
