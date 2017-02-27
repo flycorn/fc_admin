@@ -162,7 +162,7 @@ trait FcAdminModel
             $result['data'] = $list;
 
         }catch (\Exception $exception){
-            exit($exception->getMessage());
+            // exit($exception->getMessage());
         }
         //返回结果集
         return $result;
