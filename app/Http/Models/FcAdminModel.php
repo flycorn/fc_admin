@@ -121,7 +121,7 @@ trait FcAdminModel
                                 $queryStr = $vv[0];
                                 $optArr = explode(' ', $vv[1]);
                                 if(is_numeric(strpos($vv[1], '?'))){
-                                    if(count($optArr) >= 3) $query->$queryStr(trim($optArr[0], ' '), trim($optArr[1], ' '), str_replace('?', $keyword, trim($optArr[2], ' ')));
+                                    if(count($optArr) >= 3 && !empty($keyword)) $query->$queryStr(trim($optArr[0], ' '), trim($optArr[1], ' '), str_replace('?', $keyword, trim($optArr[2], ' ')));
                                 } else {
                                     if(count($optArr) >= 3) $query->$queryStr(trim($optArr[0], ' '), trim($optArr[1], ' '), trim($optArr[2], ' '));
                                 }
@@ -162,7 +162,7 @@ trait FcAdminModel
             $result['data'] = $list;
 
         }catch (\Exception $exception){
-            // exit($exception->getMessage());
+//            exit($exception->getMessage());
         }
         //返回结果集
         return $result;
