@@ -26,7 +26,20 @@ class PermissionController extends ApiController
         $pid = (int)$pid;
         //重组数据
         $param = $request->all();
-        return $this->response($this->permission->dataTable($param, ['where' => ['pid' => $pid]]));
+        
+        return $this->response($this->permission->dataTable(['id', 'name', 'display_name', 'description', 'sort', 'pid', 'icon', 'is_menu', 'updated_at'], $param, [
+            'condition' => [
+                [
+                    'where',
+                    ['where', 'pid = '.$pid]
+                ],
+                [
+                    'where',
+                    ['where', 'display_name like %?%'],
+                    ['orWhere', 'name like %?%']
+                ]
+            ]
+        ]));
     }
 
     /**

@@ -12,7 +12,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  */
 class Admin extends Model
 {
-    use EntrustUserTrait;
+    use EntrustUserTrait, FcAdminModel;
 
     //
     protected $table = 'admins';
@@ -93,92 +93,6 @@ class Admin extends Model
         foreach ($role_ids as $k => $role_id){
             $this->attachRole(['id' => $role_id]);
         }
-    }
-
-    /**
-     * 对接dataTable数据表
-     * @param array $param
-     */
-    public function dataTable($param = [])
-    {
-        /**
-        sEcho:2
-        iColumns:6
-        sColumns:,,,,,
-        iDisplayStart:0
-        iDisplayLength:10
-        mDataProp_0:admin_id
-        sSearch_0:
-        bRegex_0:false
-        bSearchable_0:true
-        bSortable_0:true
-        mDataProp_1:username
-        sSearch_1:
-        bRegex_1:false
-        bSearchable_1:true
-        bSortable_1:false
-        mDataProp_2:nickname
-        sSearch_2:
-        bRegex_2:false
-        bSearchable_2:true
-        bSortable_2:false
-        mDataProp_3:avatar
-        sSearch_3:
-        bRegex_3:false
-        bSearchable_3:true
-        bSortable_3:false
-        mDataProp_4:email
-        sSearch_4:
-        bRegex_4:false
-        bSearchable_4:true
-        bSortable_4:false
-        mDataProp_5:updated_at
-        sSearch_5:
-        bRegex_5:false
-        bSearchable_5:true
-        bSortable_5:true
-        sSearch:
-        bRegex:false
-        iSortCol_0:0
-        sSortDir_0:asc
-        iSortingCols:1
-         */
-        $db = new static;
-
-        $result = [
-            'data' => [],
-            'sEcho' => 0,
-            'iTotalDisplayRecords' => 0,
-            'iTotalRecords' => 0
-        ];
-        if(isset($param['sEcho']) && is_numeric($param['sEcho'])){
-            $result['sEcho'] = $param['sEcho'];
-        }
-        //判断是否关键字查询
-        if(isset($param['sSearch']) && !empty($param['sSearch'])){
-            $db = $db->where('username', 'like', '%'.$param['sSearch'].'%')->orWhere('nickname', 'like', '%'.$param['sSearch'].'%')->orWhere('email', 'like', '%'.$param['sSearch'].'%');
-        }
-        $result['iTotalRecords'] = $db->count();
-
-        //查询排序
-        if(isset($param['iSortCol_0']) && is_numeric($param['iSortCol_0']) && isset($param['sSortDir_0']) && !empty($param['sSortDir_0'])){
-            $field = 'mDataProp_'.$param['iSortCol_0'];
-            if(isset($param[$field]) && !empty($param[$field])){
-                $db = $db->orderBy($param[$field], $param['sSortDir_0']);
-            }
-        }
-        $iDisplayStart = 0;
-        $iDisplayLength = 10;
-        if(isset($param['iDisplayStart']) && is_numeric($param['iDisplayStart'])){
-            $iDisplayStart = intval($param['iDisplayStart']);
-        }
-        if(isset($param['iDisplayLength']) && is_numeric($param['iDisplayLength'])){
-            $iDisplayLength = intval($param['iDisplayLength']);
-        }
-
-        $result['data'] = $db->offset($iDisplayStart)->limit($iDisplayLength)->get();
-        $result['iTotalDisplayRecords'] = $result['iTotalRecords'];
-        return $result;
     }
 
 }

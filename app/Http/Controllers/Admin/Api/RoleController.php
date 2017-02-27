@@ -23,7 +23,16 @@ class RoleController extends ApiController
     {
         //重组数据
         $param = $request->all();
-        return $this->response($this->role->dataTable($param));
+        
+        return $this->response($this->role->dataTable(['id', 'name', 'display_name', 'description', 'updated_at'], $param, [
+            'condition' => [
+                [
+                    'where',
+                    ['where', 'display_name like %?%'],
+                    ['orWhere', 'name like %?%']
+                ]
+            ]
+        ]));
     }
 
     /**

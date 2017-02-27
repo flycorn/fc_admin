@@ -23,7 +23,17 @@ class ManagerController extends ApiController
     {
         //重组数据
         $param = $request->all();
-        return $this->response($this->admin->dataTable($param));
+        
+        return $this->response($this->admin->dataTable(['user_id', 'username', 'nickname', 'avatar', 'email', 'updated_at'], $param, [
+            'condition' => [
+                [
+                    'where',
+                    ['where', 'username like %?%'],
+                    ['orWhere', 'nickname like %?%'],
+                    ['orWhere', 'email like %?%']
+                ]
+            ]
+        ]));
     }
 
     /**
