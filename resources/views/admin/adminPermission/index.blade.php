@@ -83,7 +83,7 @@
                         opt_html += "<a href='{{ url('admin/adminPermission') }}/"+data+"/show' class='X-Small btn-xs text-info'><i class='fa fa-send'></i> 详情</a>";
                         @endif
                         @if(adminAuth('admin.adminPermission.index'))
-                        opt_html += "<a href='{{ url('admin/adminPermission') }}/"+data+"' class='X-Small btn-xs text-teal'><i class='fa fa-navicon'></i> 子级权限</a>";
+                        opt_html += "<a href='{{ url('admin/adminPermission') }}/"+data+"' class='X-Small btn-xs text-navy'><i class='fa fa-navicon'></i> 子级权限</a>";
                         @endif
                         @if(adminAuth('admin.adminPermission.edit'))
                         opt_html += "<a href='{{ url('admin/adminPermission') }}/"+data+"/edit' class='X-Small btn-xs text-success'><i class='fa fa-edit'></i> 编辑</a>";

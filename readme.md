@@ -17,14 +17,18 @@
     cp .env.example .env
     根据自己情况修改.env配置,及config/fc_admin.php中的配置
     fc_admin.php配置中可设置后台样式、超级管理员的用户名及邮箱
+    
     默认样式为：skin-green （skin-green、skin-green-light、skin-black、skin-black-light、skin-blue、skin-blue-light、skin-purple、skin-purple-light、skin-red、skin-red-light、skin-yellow、skin-yellow-light）
+    
     默认超级管理员的用户名为：admin 邮箱为：admin@admin.com
+
+    默认密码为：admin123
     
 >4、初始化后台
 
     php artisan fc_admin:init
     
->5、OK......开启后台脚手架之旅吧！初始登录密码为：admin123
+>5、OK......开启后台脚手架之旅吧!
 
 <code>ps: 请将项目根目录指向到public目录。</code>
 
