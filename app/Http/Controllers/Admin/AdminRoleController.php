@@ -35,7 +35,7 @@ class AdminRoleController extends BaseController
         $id = (int)$id;
 
         $role = $this->adminRoleService->roleData($id);
-        if(empty($role)) return $this->fcAdminTool->response(['status' => 0, 'msg' => '该角色不存在!'], 'admin/adminRole');
+        if(empty($role)) return $this->tool->response(['status' => 0, 'msg' => '该角色不存在!'], 'admin/adminRole');
 
         return view('admin.adminRole.show', compact('role'));
     }

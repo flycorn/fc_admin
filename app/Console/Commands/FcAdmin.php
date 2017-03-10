@@ -79,7 +79,7 @@ class FcAdmin extends Command
             if($res_status){
                 try{
                     $data = [
-                        ['id' => 1, 'rule' => 'admin.system.index', 'name' => '系统管理', 'description' => '系统管理', 'pid' => 0, 'icon' => 'fa-codepen', 'sort' => 0, 'is_menu' => 1, 'created_at' => $date_time],
+                        ['id' => 1, 'rule' => 'admin.system.index', 'name' => '系统管理', 'description' => '系统管理', 'pid' => 0, 'icon' => 'fa-cog', 'sort' => 0, 'is_menu' => 1, 'created_at' => $date_time],
                         ['id' => 2, 'rule' => 'admin.adminUser.index', 'name' => '管理员管理', 'description' => '管理员管理', 'pid' => 1, 'icon' => 'fa-user-secret', 'sort' => 0, 'is_menu' => 1, 'created_at' => $date_time],
                         ['id' => 3, 'rule' => 'admin.adminPermission.index', 'name' => '权限管理', 'description' => '权限管理', 'pid' => 1, 'icon' => 'fa-chain', 'sort' => 1, 'is_menu' => 1, 'created_at' => $date_time],
                         ['id' => 4, 'rule' => 'admin.adminRole.index', 'name' => '角色管理', 'description' => '角色管理', 'pid' => 1, 'icon' => 'fa-codepen', 'sort' => 2, 'is_menu' => 1, 'created_at' => $date_time],
