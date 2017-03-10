@@ -33,18 +33,24 @@
 
 <code>ps: 请将web根目录指向到public目录。</code>
 
+***
+
 Question
 ----
 
 - 1、执行 fc_admin:init 时，出现:
        
-       SQLSTATE[42000]: Syntax error or access violation: 1115 Unknown character set: 'utf8mb4'
+      SQLSTATE[42000]: Syntax error or access violation: 1115 Unknown character set: 'utf8mb4'
        
-       解决：修改config/database.php文件,将mysql配置项中 charset值改为utf8mb4、collation值改为utf8_unicode_ci
+      解决：修改config/database.php文件,将mysql配置项中 charset值改为utf8mb4、collation值改为utf8_unicode_ci
 
-- 2、执行 fc_admin:init 时，出现数据库连接错误，请检查.env中数据库配置。可将.env中 DB_HOST 改为localhost尝试！
+- 2、执行 fc_admin:init 时，出现数据库连接错误!
 
-- 3、访问页面出现500错误，请将storage目录权限设为777。
+      请检查.env中数据库配置。可将.env中 DB_HOST 改为localhost尝试！
+
+- 3、访问页面出现500错误!
+
+      请将storage目录权限设为777!
 
 
 ###后台截图
