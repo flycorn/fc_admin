@@ -15,7 +15,7 @@ class CreateAdminRbacTable extends Migration
     {
         Schema::create('admin_roles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique()->comment('角色名称');
+            $table->string('name', 100)->unique()->comment('角色名称');
             $table->string('description')->nullable()->comment('角色描述');
             $table->timestamps();
         });
@@ -28,7 +28,7 @@ class CreateAdminRbacTable extends Migration
         Schema::create('admin_permissions', function (Blueprint $table) {
             $table->increments('id')->comment('权限id');
             $table->string('name')->comment('权限名称');
-            $table->string('rule')->unique()->comment('权限规则');
+            $table->string('rule', 50)->unique()->comment('权限规则');
             $table->string('description')->nullable()->comment('权限描述');
             $table->integer('pid')->default(0)->comment('所属权限');
             $table->tinyInteger('is_menu')->default(0)->comment('是否菜单');

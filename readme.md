@@ -6,7 +6,7 @@
 
 >1、git克隆项目
 
-    git clone https://github.com/flycorn/fc_admin.git fc_admin
+    git clone https://github.com/flycorn/fc_admin.git
 
 >2、composer下载所需类库
     
@@ -15,8 +15,9 @@
 >3、修改配置
     
     cp .env.example .env
-    根据自己情况修改.env配置,及config/fc_admin.php中的配置
-    fc_admin.php配置中可设置后台样式、超级管理员的用户名及邮箱
+    根据自己情况修改.env中相关配置,及config/fc_admin.php中的配置
+    
+    fc_admin.php配置中可设置后台样式、超级管理员的用户名、邮箱及初始密码
     
     默认样式为：skin-green （skin-green、skin-green-light、skin-black、skin-black-light、skin-blue、skin-blue-light、skin-purple、skin-purple-light、skin-red、skin-red-light、skin-yellow、skin-yellow-light）
     

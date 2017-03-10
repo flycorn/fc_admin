@@ -49,8 +49,10 @@ class AdminPermissionController extends BaseController
         //添加权限
         $result = $this->adminPermissionService->createPermission($form_data);
 
+        $pid = isset($form_data['pid']) ? (int)$form_data['pid'] : 0;
+
         //返回响应
-        return $this->tool->response($result, 'admin/adminPermission');
+        return $this->tool->response($result, 'admin/adminPermission/'.$pid);
     }
 
     /**
@@ -68,8 +70,10 @@ class AdminPermissionController extends BaseController
         //编辑权限
         $result = $this->adminPermissionService->editPermission($id, $form_data);
 
+        $pid = isset($form_data['pid']) ? (int)$form_data['pid'] : 0;
+
         //返回响应
-        return $this->tool->response($result, 'admin/adminPermission');
+        return $this->tool->response($result, 'admin/adminPermission/'.$pid);
     }
 
     /**
