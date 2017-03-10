@@ -10,6 +10,7 @@
 namespace App\Services\Admin;
 
 
+use App\Events\AdminLoggerEvent;
 use App\Events\AdminPermissionChangeEvent;
 use App\Models\Admin\AdminPermission;
 use Illuminate\Support\Facades\Event;
@@ -44,13 +45,17 @@ class AdminPermissionService extends AdminService
     public function createPermission($form_data)
     {
         $form_data['created_at'] = date('Y-m-d H:i:s');
-        //写入数据
-        $id = $this->adminPermission->insertGetId($form_data);
+        //创建权限
+        foreach ($form_data as $k => $v){
+            $this->adminPermission->$k = $v;
+        }
+        $res = $this->adminPermission->save();
 
-        if(!$id) return $this->handleError('添加失败!');
+        if(!$res) return $this->handleError('添加失败!');
 
         //触发事件
         Event::fire(new AdminPermissionChangeEvent($this->adminPermission));
+        Event::fire(new AdminLoggerEvent('创建了权限 [ ID:'.$this->adminPermission->id.', 权限名:'.$this->adminPermission->name.', 规则:'.$this->adminPermission->rule.' ]'));
 
         return $this->handleSuccess('添加成功!');
     }
@@ -78,6 +83,7 @@ class AdminPermissionService extends AdminService
 
         //触发事件
         Event::fire(new AdminPermissionChangeEvent($this->adminPermission));
+        Event::fire(new AdminLoggerEvent('修改了权限 [ ID:'.$permission->id.', 权限名:'.$form_data['name'].', 规则:'.$form_data['rule'].' ]'));
 
         return $this->handleSuccess('编辑成功!');
     }
@@ -108,6 +114,7 @@ class AdminPermissionService extends AdminService
 
         //触发事件
         Event::fire(new AdminPermissionChangeEvent($this->adminPermission));
+        Event::fire(new AdminLoggerEvent('删除了权限 [ ID:'.$permission->id.', 权限名:'.$permission->name.', 规则:'.$permission->rule.' ]'));
 
         return $this->handleSuccess('删除成功');
     }

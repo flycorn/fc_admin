@@ -10,8 +10,10 @@
 
 namespace App\Services\Admin;
 
+use App\Events\AdminLoggerEvent;
 use App\Models\Admin\AdminUser;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 
 class AdminUserService extends AdminService
@@ -201,6 +203,9 @@ class AdminUserService extends AdminService
         //授权角色
         $this->adminUser->authorizeRoles($role_ids);
 
+        //触发事件
+        Event::fire(new AdminLoggerEvent('创建了管理员 [ ID:'.$this->adminUser->id.', 用户名:'.$this->adminUser->name.', 昵称:'.$this->adminUser->nickname.' ]'));
+
         //创建结果
         return $this->handleSuccess('添加成功!');
     }
@@ -245,6 +250,9 @@ class AdminUserService extends AdminService
         //授权角色
         $admin->authorizeRoles($role_ids);
 
+        //触发事件
+        Event::fire(new AdminLoggerEvent('修改了管理员 [ ID:'.$admin->id.', 用户名:'.$admin->name.', 昵称:'.$form_data['nickname'].' ]'));
+
         //修改成功
         return $this->handleSuccess('编辑成功!');
     }
@@ -274,6 +282,9 @@ class AdminUserService extends AdminService
 
         //删除图片
         if($avatar != 'upload/admin/avatar/default/avatar.png') removeFile($avatar);
+
+        //触发事件
+        Event::fire(new AdminLoggerEvent('删除了管理员 [ ID:'.$admin->id.', 用户名:'.$admin->name.', 昵称:'.$admin->nickname.' ]'));
 
         return $this->handleSuccess('删除成功!');
     }

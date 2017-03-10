@@ -12,14 +12,16 @@ Route::get('captcha', 'CaptchaController@index'); //登录验证码
 Route::get('login', 'LoginController@index'); //登录页
 Route::get('logout', 'LoginController@logout'); //退出
 
-Route::group(['middleware' => ['fcAdmin.login:admin', 'fcAdmin.auth', 'fcAdmin.permission']], function () {
+Route::group(['middleware' => ['fcAdmin.login:admin', 'fcAdmin.permission', 'fcAdmin.auth']], function () {
 
     //基础路由
     Route::get('/', 'IndexController@index');
     Route::get('ucenter', 'UcenterController@index'); //个人中心
 
+    //系统管理
+    Route::name('admin.system.index')->get('system', 'SystemController@index');
+
     //管理员管理
-    Route::name('admin.adminUser.user')->get('adminUser/user', 'AdminUserController@index');
     Route::name('admin.adminUser.index')->get('adminUser', 'AdminUserController@index');
     Route::name('admin.adminUser.create')->get('adminUser/create', 'AdminUserController@create');
     Route::name('admin.adminUser.edit')->get('adminUser/{id}/edit', 'AdminUserController@edit');

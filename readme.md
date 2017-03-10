@@ -62,3 +62,5 @@ Question
 ![fc_admin](https://github.com/flycorn/fc_admin/blob/master/public/fc_admin/3.png?raw=true)
 ![fc_admin](https://github.com/flycorn/fc_admin/blob/master/public/fc_admin/4.png?raw=true)
 ![fc_admin](https://github.com/flycorn/fc_admin/blob/master/public/fc_admin/5.png?raw=true)
+![fc_admin](https://github.com/flycorn/fc_admin/blob/master/public/fc_admin/6.png?raw=true)
+

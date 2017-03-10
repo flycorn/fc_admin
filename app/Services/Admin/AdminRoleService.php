@@ -10,8 +10,10 @@
 namespace App\Services\Admin;
 
 
+use App\Events\AdminLoggerEvent;
 use App\Models\Admin\AdminPermission;
 use App\Models\Admin\AdminRole;
+use Illuminate\Support\Facades\Event;
 
 class AdminRoleService extends AdminService
 {
@@ -79,10 +81,17 @@ class AdminRoleService extends AdminService
     public function createRole($form_data)
     {
         $form_data['created_at'] = date('Y-m-d H:i:s');
-        //写入数据
-        $id = $this->adminRole->insertGetId($form_data);
 
-        if(!$id) return $this->handleError('添加失败!');
+        //创建角色
+        foreach ($form_data as $k => $v){
+            $this->adminRole->$k = $v;
+        }
+        $res = $this->adminRole->save();
+
+        if(!$res) return $this->handleError('添加失败!');
+
+        //触发事件
+        Event::fire(new AdminLoggerEvent('添加了角色 [ ID:'.$this->adminRole->id.', 角色名:'.$this->adminRole->name.' ]'));
 
         return $this->handleSuccess('添加成功');
     }
@@ -102,6 +111,9 @@ class AdminRoleService extends AdminService
         $form_data['updated_at'] = date('Y-m-d H:i:s');
         $res = $this->adminRole->where('id', $role_id)->update($form_data);
         if(!$res) return $this->handleError('修改失败!');
+
+        //触发事件
+        Event::fire(new AdminLoggerEvent('修改了角色 [ ID:'.$role->id.', 角色名:'.$form_data['name'].' ]'));
 
         return $this->handleSuccess('修改成功');
     }
@@ -126,6 +138,9 @@ class AdminRoleService extends AdminService
             $role->permissions()->detach($v);
         }
 
+        //触发事件
+        Event::fire(new AdminLoggerEvent('删除了角色 [ ID:'.$role->id.', 角色名:'.$role->name.' ]'));
+
         return $this->handleSuccess('删除成功');
     }
 
@@ -144,6 +159,10 @@ class AdminRoleService extends AdminService
 
         //授权
         $role -> authorizePermissions($perm_ids);
+
+        //触发事件
+        $data = !empty($perm_ids) ? AdminPermission::select(['id', 'name', 'rule', 'description'])->whereIn('id', $perm_ids)->get()->toArray() : [];
+        Event::fire(new AdminLoggerEvent('角色授权 [ ID:'.$role->id.', 角色名:'.$role->name.' ]', $data));
 
         return $this->handleSuccess('授权成功!');
     }

@@ -27,6 +27,7 @@ class FcAdminPermission
     {
         //获取数据
         $data = $this -> authPermissionMenu();
+
         $shareData = [];
         $shareData['authMenus'] = $data['menu_list'];
         $shareData['openMenus'] = $data['open_menu'];
@@ -87,10 +88,16 @@ class FcAdminPermission
             } else {
                 $perms[$v['id']] = $v;
             }
+            if($v['id'] == 3){
+
+//                dd(adminAuth($v['rule']));
+            }
             if($v['is_menu'] && adminAuth($v['rule'])){
                 $menu_list[] = $v;
             }
         }
+
+//        dd($menu_list);
 
         //获取当前面包屑
         $breadcrumbs = [];

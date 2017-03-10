@@ -33,16 +33,8 @@ class BaseController extends Controller
         //后台工具类
         $this->tool = $tool;
 
-        //系统初始化
-        $this->_sysInit();
-        //模块初始化
+        //控制器初始化
         $this->_init();
-    }
-
-    //系统初始化
-    private function _sysInit()
-    {
-
     }
 
     //模块控制器初始化

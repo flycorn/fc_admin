@@ -33,25 +33,8 @@ class BaseController extends Controller
         //后台工具类
         $this->tool = $tool;
 
-        //系统初始化
-        $this->_sysInit();
-
+        //控制器初始化
         $this->_init();
-    }
-
-    //系统初始化
-    private function _sysInit()
-    {
-        //获取skin样式
-        $skin = Config::get('fc_admin.skin');
-        if(empty($skin)) $skin = 'skin-blue';  //默认样式
-
-        $shareData = [
-            'skin' => $skin,
-        ];
-
-        //视图共享数据
-        View::share($shareData);
     }
 
     //模块控制器初始化

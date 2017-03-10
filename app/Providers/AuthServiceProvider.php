@@ -39,12 +39,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         //区分后台访问
         $pathInfo = ltrim($request->getPathInfo(), '/');
-        $prefix = substr($pathInfo, 0, strpos($pathInfo, '/'));
+        $prefix = is_numeric(strpos($pathInfo, '/')) ? substr($pathInfo, 0, strpos($pathInfo, '/')) : $pathInfo;
         $adminPrefixs = [
             'admin',
             'adminApi'
         ];
         if(in_array($prefix, $adminPrefixs)){
+
             //后台
             $gateContract->before(function ($user, $ability) {
                 //是否超级管理员
