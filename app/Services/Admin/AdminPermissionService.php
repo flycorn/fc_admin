@@ -1,5 +1,6 @@
 <?php
 /**
+ * 后台权限服务
  * Author: flycorn
  * Email: ym1992it@163.com
  * Date: 2017/3/7
@@ -9,7 +10,9 @@
 namespace App\Services\Admin;
 
 
+use App\Events\AdminPermissionChangeEvent;
 use App\Models\Admin\AdminPermission;
+use Illuminate\Support\Facades\Event;
 
 class AdminPermissionService extends AdminService
 {
@@ -46,6 +49,9 @@ class AdminPermissionService extends AdminService
 
         if(!$id) return $this->handleError('添加失败!');
 
+        //触发事件
+        Event::fire(new AdminPermissionChangeEvent($this->adminPermission));
+
         return $this->handleSuccess('添加成功!');
     }
 
@@ -70,6 +76,9 @@ class AdminPermissionService extends AdminService
         $res = $this->adminPermission->where('id', $id)->update($form_data);
         if(!$res) return $this->handleError('编辑失败!');
 
+        //触发事件
+        Event::fire(new AdminPermissionChangeEvent($this->adminPermission));
+
         return $this->handleSuccess('编辑成功!');
     }
 
@@ -83,9 +92,22 @@ class AdminPermissionService extends AdminService
         $permission = $this->permissionData($id);
         if(empty($permission)) return $this->handleError('该权限不存在!');
 
+        //验证是否有自权限
+        $sub = $this->adminPermission->where('pid', $id)->first();
+        if(!empty($sub)){
+            return $this->handleError('请先删除该权限下所有子权限!');
+        }
         //删除
         $res = $permission->delete();
         if(!$res) return $this->handleError('删除失败!');
+
+        //清除角色对应权限数据
+        foreach ($permission->roles as $role) {
+            $permission->roles()->detach($role -> id);
+        }
+
+        //触发事件
+        Event::fire(new AdminPermissionChangeEvent($this->adminPermission));
 
         return $this->handleSuccess('删除成功');
     }

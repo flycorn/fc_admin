@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\FcAdmin::class,
+        Commands\FcAdminCache::class,
+
     ];
 
     /**

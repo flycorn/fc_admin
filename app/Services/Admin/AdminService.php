@@ -1,5 +1,6 @@
 <?php
 /**
+ * 后台服务基类
  * Author: flycorn
  * Email: ym1992it@163.com
  * Date: 2017/3/7

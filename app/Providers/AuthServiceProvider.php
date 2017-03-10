@@ -26,7 +26,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(GateContract $gateContract, Request $request)
     {
         $this->registerPolicies();
-
         //后台
         $this->fcAdmin($gateContract, $request);
     }

@@ -1,5 +1,6 @@
 <?php
 /**
+ * 后台角色服务
  * Author: flycorn
  * Email: ym1992it@163.com
  * Date: 2017/3/7
@@ -119,6 +120,11 @@ class AdminRoleService extends AdminService
         //删除
         $res = $role->delete();
         if(!$res) return $this->handleError('删除失败!');
+
+        //清除授权数据
+        foreach ($role->permissions as $v){
+            $role->permissions()->detach($v);
+        }
 
         return $this->handleSuccess('删除成功');
     }
