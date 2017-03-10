@@ -5,14 +5,14 @@
    page. However, you can choose any other skin. Make sure you
    apply the skin class to the body tag so the changes take effect.
 -->
-<link rel="stylesheet" href="{{ asset('static/admin/dist/css/skins/'.$skin.'.css') }}">
+<link rel="stylesheet" href="{{ asset('static/admin/dist/css/skins/'.config('fc_admin.skin').'.css') }}">
 
 <!--
     load css
 -->
 <link href="{{ asset('static/admin/dist/css/load/load.css') }}" rel="stylesheet">
 
-<body class="hold-transition {{$skin}} sidebar-mini">
+<body class="hold-transition {{config('fc_admin.skin')}} sidebar-mini">
 
 <!-- 加载 -->
 <div id="loading">
