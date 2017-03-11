@@ -8,9 +8,9 @@
 
     git clone https://github.com/flycorn/fc_admin.git
 
->2、composer下载所需类库
+>2、composer安装依赖包
     
-    composer update
+    composer install
     
 >3、修改配置
     
