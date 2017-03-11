@@ -46,7 +46,7 @@ Question
        
       SQLSTATE[42000]: Syntax error or access violation: 1115 Unknown character set: 'utf8mb4'
        
-      解决：修改config/database.php文件,将mysql配置项中 charset值改为utf8mb4、collation值改为utf8_unicode_ci
+      解决：修改config/database.php文件,将mysql配置项中 charset值改为utf8、collation值改为utf8_unicode_ci
 
 - 3、访问页面出现500错误!
 
