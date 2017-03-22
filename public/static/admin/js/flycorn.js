@@ -202,7 +202,7 @@ var fc_upload_img = function (ele, configParam, successfn, errorfn){
         dataType: 'json',
         beforeUpload: null, //上传前处理
         afterUpload: null, //上传后处理
-        async: false
+        async: true
     };
     //配置参数
     if(configParam.hasOwnProperty('form')){
