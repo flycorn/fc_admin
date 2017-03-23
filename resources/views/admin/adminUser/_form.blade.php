@@ -51,7 +51,7 @@
 <div class="form-group">
     <label for="avatar" class="col-md-3 control-label">头像</label>
     <div class="col-md-5">
-        <input type="hidden" name="avatar" id="avatar_val" value="{{$form_type == 'edit' && !old('avatar') ? '' : ( empty(old('avatar')) ? '' : old('avatar') ) }}" value="" />
+        <input type="hidden" name="avatar" id="avatar_val" value="{{$form_type == 'edit' && !old('avatar') ? '' : ( empty(old('avatar')) ? '' : old('avatar') ) }}" />
         <img id="avatar_img" src="{{ $form_type == 'edit' && !old('avatar') ? asset($user -> avatar) : (!empty(old('avatar')) ? asset(old('avatar')) : '') }}" class="img-lg img-circle" style="{{ $form_type == 'create' && empty(old('avatar')) ? 'display: none;' : '' }}float: none !important;">
     </div>
 </div>
