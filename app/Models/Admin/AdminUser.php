@@ -3,6 +3,7 @@
 namespace App\Models\Admin;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\FcAdminModel;
 
 class AdminUser extends Authenticatable
 {

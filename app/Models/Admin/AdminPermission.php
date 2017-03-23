@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\FcAdminModel;
 use Illuminate\Database\Eloquent\Model;
 
 class AdminPermission extends Model

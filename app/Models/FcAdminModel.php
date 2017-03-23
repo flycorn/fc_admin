@@ -6,7 +6,7 @@
  * Date: 2017/3/5
  * Time: 16:14
  */
-namespace App\Models\Admin;
+namespace App\Models;
 
 trait FcAdminModel
 {

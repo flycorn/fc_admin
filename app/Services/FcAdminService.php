@@ -7,9 +7,9 @@
  * Time: 15:18
  */
 
-namespace App\Services\Admin;
+namespace App\Services;
 
-abstract class AdminService
+abstract class FcAdminService
 {
 
     /**

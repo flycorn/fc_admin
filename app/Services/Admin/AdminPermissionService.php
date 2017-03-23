@@ -13,9 +13,11 @@ namespace App\Services\Admin;
 use App\Events\AdminLoggerEvent;
 use App\Events\AdminPermissionChangeEvent;
 use App\Models\Admin\AdminPermission;
+use App\Services\DataTableService;
+use App\Services\FcAdminService;
 use Illuminate\Support\Facades\Event;
 
-class AdminPermissionService extends AdminService
+class AdminPermissionService extends FcAdminService
 {
     use DataTableService;
 

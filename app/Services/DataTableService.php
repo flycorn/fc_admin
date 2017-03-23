@@ -7,7 +7,7 @@
  * Time: 15:00
  */
 
-namespace App\Services\Admin;
+namespace App\Services;
 
 trait DataTableService
 {
