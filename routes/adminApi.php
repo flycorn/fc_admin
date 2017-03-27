@@ -36,4 +36,8 @@ Route::group(['middleware' => ['fcAdmin.login:admin', 'fcAdmin.auth']], function
     Route::name('admin.adminRole.edit')->put('adminRole/{id}', 'AdminRoleController@update');
     Route::name('admin.adminRole.delete')->delete('adminRole/{role}', 'AdminRoleController@destroy');
 
+    /**
+     * other modules
+     */
+    
 });

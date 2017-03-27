@@ -42,5 +42,9 @@ Route::group(['middleware' => ['fcAdmin.login:admin', 'fcAdmin.permission', 'fcA
     Route::name('admin.adminRole.show')->get('adminRole/{id}', 'AdminRoleController@show');
     Route::name('admin.adminRole.edit')->get('adminRole/{id}/edit', 'AdminRoleController@edit');
 
+    /**
+     * other modules
+     */
+    
 });
 
