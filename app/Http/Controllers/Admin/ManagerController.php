@@ -81,7 +81,8 @@ class ManagerController extends AdminController
             $form_data['password'] = Crypt::encrypt($form_data['password'].$form_data['salt']);
             $form_data['created_at'] = date('Y-m-d H:i:s');
             $form_data['updated_at'] = $form_data['created_at'];
-
+            $form_data['remember_token'] = uniqid().str_random(30);
+            
             //新增
             $avatar = $form_data['avatar'];
             unset($form_data['avatar']);
